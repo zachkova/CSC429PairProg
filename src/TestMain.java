@@ -1,5 +1,7 @@
 
 import java.util.Properties;
+import model.model.Book;
+import model.model.Patron;
 
 import model.*;
 
