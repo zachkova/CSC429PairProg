@@ -23,7 +23,9 @@
 package database;
 
 /// system imports
+import java.util.Enumeration;
 import java.sql.Driver;
+import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -50,7 +52,7 @@ public class JDBCBroker
 	//----------------------------------------------------------
 	static public JDBCBroker getInstance()
 	{
-		//DEBUG: System.out.println("JDBCBroker.getInstance()");
+		// DEBUG: System.out.println("JDBCBroker.getInstance()");
 		
 	        if(myInstance == null)
         	{
@@ -76,7 +78,7 @@ public class JDBCBroker
 	//----------------------------------------------------------
 	protected JDBCBroker()
     	{
-    		//DEBUG: System.out.println("JDBCBroker.JDBCBroker()");
+    		// DEBUG: System.out.println("JDBCBroker.JDBCBroker()");
 		props = new PropertyFile("dbConfig.ini");
 		if (props != null)
 		{
@@ -84,10 +86,6 @@ public class JDBCBroker
 			username = props.getProperty("username");
 			password = props.getProperty("password");
 			server = props.getProperty("server");
-			/*username="zkova1";
-			password="YeezyMauve703";
-			dbName="spr21_csc429_zkova1";
-			server="csdb.brockport.edu";*/
 			if (server == null)
 				server = "localhost";
 		}

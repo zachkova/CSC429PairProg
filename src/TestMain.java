@@ -1,7 +1,5 @@
 
 import java.util.Properties;
-import model.model.Book;
-import model.model.Patron;
 
 import model.*;
 
@@ -35,6 +33,7 @@ public class TestMain
 			System.out.println("Error in accessing Kyle stupid database: " + ex.toString());
 		  }
 
+		
 
        }
 }

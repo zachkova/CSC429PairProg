@@ -37,8 +37,8 @@ import java.util.Enumeration;
 
 // project imports
 import impresario.IModel;
-import model.model.Account;
-import model.model.AccountCollection;
+import model.Account;
+import model.AccountCollection;
 
 //==============================================================================
 public class AccountCollectionView extends View

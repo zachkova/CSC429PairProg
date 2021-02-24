@@ -30,7 +30,7 @@ import event.Event;
 import event.EventLog;
 import common.PropertyFile;
 
-import model.model.Teller;
+import model.Teller;
 import userinterface.MainStageContainer;
 import userinterface.WindowPosition;
 
