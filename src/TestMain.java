@@ -35,7 +35,6 @@ public class TestMain
 			System.out.println("Error in accessing Kyle stupid database: " + ex.toString());
 		  }
 
-		
 
        }
 }
