@@ -33,13 +33,15 @@ public class BookCollection  extends EntityBase
     }
 
     //----------------------------------------------------------
-    public void findBooksOlderThan(String  year)
+    public void findBooksOlderThan(String year)
     {
 
         String query = "SELECT * FROM " + myTableName + "WHERE (pubYear < " + year + ")";
-        queryBuilder(query);
-
-
+        try {
+            queryBuilder(query);
+        } catch (Exception x) {
+            System.out.println("Invaild Year");
+        }
 
 
     }
@@ -116,9 +118,7 @@ public class BookCollection  extends EntityBase
     }
 
 
-    /**
-     * COME BACK TO THIS
-     */
+
     //----------------------------------------------------------
     public Object getState(String key)
     {
