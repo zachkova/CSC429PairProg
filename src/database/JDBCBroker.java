@@ -80,14 +80,14 @@ public class JDBCBroker
 		props = new PropertyFile("dbConfig.ini");
 		if (props != null)
 		{
-			/*dbName = props.getProperty("dbName");
+			dbName = props.getProperty("dbName");
 			username = props.getProperty("username");
 			password = props.getProperty("password");
-			server = props.getProperty("server");*/
-			username="zkova1";
+			server = props.getProperty("server");
+			/*username="zkova1";
 			password="YeezyMauve703";
 			dbName="spr21_csc429_zkova1";
-			server="csdb.brockport.edu";
+			server="csdb.brockport.edu";*/
 			if (server == null)
 				server = "localhost";
 		}
