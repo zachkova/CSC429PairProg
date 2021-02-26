@@ -57,7 +57,12 @@ public class Book extends EntityBase{
         }
      }
 
-     private void setDependencies(){
+    public static int compare(Book a, Book b) {
+        int result
+        return result;
+    }
+
+    private void setDependencies(){
         this.dependencies = new Properties();
         this.myRegistry.setDependencies(this.dependencies);
      }
