@@ -15,7 +15,7 @@ import database.*;
 
 /** The class containing the BookCollection */
 //==============================================================
-public class BookCollection  extends EntityBase
+public class BookCollection extends EntityBase
 {
     private static final String myTableName = "Book";
 
@@ -36,15 +36,58 @@ public class BookCollection  extends EntityBase
     public void findBooksOlderThan(String year)
     {
 
-        String query = "SELECT * FROM " + myTableName + "WHERE (pubYear < " + year + ")";
+        String query = "SELECT * FROM " + myTableName + " WHERE (pubYear < " + year + ")";
         try {
             queryBuilder(query);
         } catch (Exception x) {
-            System.out.println("Invaild Year");
+            System.out.println("Error: "+ x);
         }
 
 
     }
+
+    //----------------------------------------------------------
+    public void findBooksNewerThan(String year)
+    {
+
+        String query = "SELECT * FROM " + myTableName + " WHERE (pubYear > " + year + ")";
+        try {
+            queryBuilder(query);
+        } catch (Exception x) {
+            System.out.println("Error: "+ x);
+        }
+
+
+    }
+
+    //----------------------------------------------------------
+    public void findBooksWithTitleLike(String title)
+    {
+
+        String query = "SELECT * FROM " + myTableName + " WHERE (bookTitle LIKE '%" + title + "%')";
+        System.out.println("Title retrieval query: " + query);
+        try {
+            queryBuilder(query);
+        } catch (Exception x) {
+            System.out.println("Error: "+ x);
+        }
+
+
+    }
+    //----------------------------------------------------------
+    public void findBooksWithAuthorLike(String author)
+    {
+
+        String query = "SELECT * FROM " + myTableName + " WHERE (author LIKE '%" + author + "%')";
+        try {
+            queryBuilder(query);
+        } catch (Exception x) {
+            System.out.println("Error: "+ x);
+        }
+
+
+    }
+
     //---------------------------------------------------------------------------------
     public void queryBuilder(String query) throws Exception{
         Vector allDataRetrieved = getSelectQueryResult(query);
@@ -111,6 +154,8 @@ public class BookCollection  extends EntityBase
             {
                 low=middle+1;
             }
+
+
         }
         return low;
     }
@@ -126,6 +171,7 @@ public class BookCollection  extends EntityBase
     //---------------------------------------------------------------
     public void stateChangeRequest(String key, Object value)
     {
+
         myRegistry.updateSubscribers(key, this);
     }
 
@@ -172,6 +218,15 @@ public class BookCollection  extends EntityBase
 		swapToView(localScene);
 
 	}*/
+
+    //-----------------------------------------------------------------------------------
+    public String toString()
+    {
+        String retValue = "";
+        for (int cnt = 0; cnt < bookList.size(); cnt++)
+            retValue += bookList.get(cnt).toString() + "\n";
+        return retValue;
+    }
 
     //-----------------------------------------------------------------------------------
     protected void initializeSchema(String tableName)
