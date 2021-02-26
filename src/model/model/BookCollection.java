@@ -111,8 +111,6 @@ public class BookCollection  extends EntityBase
             {
                 low=middle+1;
             }
-
-
         }
         return low;
     }
@@ -128,7 +126,6 @@ public class BookCollection  extends EntityBase
     //---------------------------------------------------------------
     public void stateChangeRequest(String key, Object value)
     {
-
         myRegistry.updateSubscribers(key, this);
     }
 

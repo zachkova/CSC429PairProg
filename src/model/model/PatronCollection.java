@@ -11,7 +11,7 @@ import exception.InvalidPrimaryKeyException;
 import event.Event;
 import database.*;
 
-public class PatronCollection {
+public class PatronCollection extends EntityBase{
 
     private static final String myTableName = "Book";
 
@@ -21,62 +21,67 @@ public class PatronCollection {
 
     // constructor for this class
     //----------------------------------------------------------
-    public PatronCollection()
-    {
+    public PatronCollection() {
         super(myTableName);
         patronList = new Vector<Patron>();
     }
 
     //----------------------------------------------------------
-    public void findPatronsOlderThan(String  date)
-    {
+    public void findPatronsOlderThan(String date) {
 
         String query = "SELECT * FROM " + myTableName + "WHERE (pubYear < " + year + ")";
         queryBuilder(query);
 
 
     }
+
     //---------------------------------------------------------------------------------
-    public void queryBuilder(String query) throws Exception{
+    public void queryBuilder(String query) throws Exception {
         Vector allDataRetrieved = getSelectQueryResult(query);
 
-        if (allDataRetrieved != null)
-        {
+        if (allDataRetrieved != null) {
             bookList = new Vector<Book>();
 
-            for (int index = 0; index < allDataRetrieved.size(); index++)
-            {
-                Properties nextBookData = (Properties)allDataRetrieved.elementAt(index);
+            for (int index = 0; index < allDataRetrieved.size(); index++) {
+                Properties nextBookData = (Properties) allDataRetrieved.elementAt(index);
 
                 Book book = new Book(nextBookData);
 
-                if (book != null)
-                {
+                if (book != null) {
                     addBook(book);
                 }
             }
 
-        }
-        else
-        {
+        } else {
             throw new InvalidPrimaryKeyException("No books matching criteria found");
         }
 
 
-
     }
 
     //----------------------------------------------------------------------------------
-    private void addBook(Book a)
-    {
+    private void addBook(Book a) {
         //accounts.add(a);
         int index = findIndexToAdd(a);
-        bookList.insertElementAt(a,index); // To build up a collection sorted on some key
+        bookList.insertElementAt(a, index); // To build up a collection sorted on some key
     }
 
     //----------------------------------------------------------------------------------
-    private int findIndexToAdd(Book a)
-    {
+    private int findIndexToAdd(Book a) {
+    }
 
+    @Override
+    public Object getState(String key) {
+        return null;
+    }
 
+    @Override
+    public void stateChangeRequest(String key, Object value) {
+
+    }
+
+    @Override
+    protected void initializeSchema(String tableName) {
+
+    }
 }

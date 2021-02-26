@@ -58,8 +58,9 @@ public class Book extends EntityBase{
      }
 
     public static int compare(Book a, Book b) {
-        int result
-        return result;
+        String firstBookTitle = (String)a.getState("bookTitle");
+        String secondBookTitle = (String)b.getState("bookTitle");
+        return firstBookTitle.compareTo(secondBookTitle);
     }
 
     private void setDependencies(){

@@ -111,6 +111,8 @@ public class Patron extends EntityBase{
 		return "Patron: ID: " + getState("patronId") + " Name: " + getState("name") + " DOB: " + getState("dateOfBirth");
     }
 
+    //ADD COMPARE TO METHOD
+
     @Override
 	//------------------------------------------------------------------------------------
     protected void initializeSchema(String tableName) {
@@ -120,8 +122,4 @@ public class Patron extends EntityBase{
 			mySchema = getSchemaInfo(tableName);
 		}
     }
-	
-	
-	
-	
 }
