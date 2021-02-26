@@ -1,2 +1,5 @@
 [2/24/21 6:28 PM]|JDBCBroker|JDBCBroker|Error|NOTAG|null<Could not load driver class[com.mysql.jdbc.Driver]>
 [2/25/21 12:33 PM]|JDBCBroker|JDBCBroker|Error|NOTAG|null<Could not load driver class[com.mysql.jdbc.Driver]>
+[2/26/21 4:25 PM]|PatronCollection|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'author' in 'where clause'>
+[2/26/21 4:25 PM]|PatronCollection|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'author' in 'where clause'>
+[2/26/21 4:26 PM]|PatronCollection|getSelectQueryResult|Error|NOTAG|null<SQL Exception: 1054: Unknown column 'author' in 'where clause'>

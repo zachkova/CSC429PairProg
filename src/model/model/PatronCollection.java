@@ -13,7 +13,7 @@ import database.*;
 
 public class PatronCollection extends EntityBase{
 
-    private static final String myTableName = "Book";
+    private static final String myTableName = "Patron";
 
     private Vector<Patron> patronList;
     // GUI Components
@@ -29,26 +29,51 @@ public class PatronCollection extends EntityBase{
     //----------------------------------------------------------
     public void findPatronsOlderThan(String date) {
 
-        String query = "SELECT * FROM " + myTableName + "WHERE (pubYear < " + year + ")";
-        queryBuilder(query);
-
+        String query = "SELECT * FROM " + myTableName + "WHERE (pubYear < " + date + ")";
+        try {
+            queryBuilder(query);
+        }
+        catch (Exception x){
+            System.out.println("Error" + x);
+        }
 
     }
+
+    //----------------------------------------------------------
+    public String toString()
+    {
+        String retValue = "";
+        for (int cnt = 0; cnt < patronList.size(); cnt++)
+            retValue += patronList.get(cnt).toString() + "\n";
+        return retValue;
+    }
+
+    //---------------------------------------------------------------------------------
+    public void findPatronsWithNameLike(String name)
+    {
+        String query = "SELECT * FROM " + myTableName + " WHERE (name LIKE '%" + name + "%')";
+        try {
+            queryBuilder(query);
+        } catch (Exception x) {
+            System.out.println("Error: "+ x);
+        }
+    }
+
 
     //---------------------------------------------------------------------------------
     public void queryBuilder(String query) throws Exception {
         Vector allDataRetrieved = getSelectQueryResult(query);
 
         if (allDataRetrieved != null) {
-            bookList = new Vector<Book>();
+            patronList = new Vector<Patron>();
 
             for (int index = 0; index < allDataRetrieved.size(); index++) {
-                Properties nextBookData = (Properties) allDataRetrieved.elementAt(index);
+                Properties nextPatronData = (Properties) allDataRetrieved.elementAt(index);
 
-                Book book = new Book(nextBookData);
+                Patron patron = new Patron(nextPatronData);
 
-                if (book != null) {
-                    addBook(book);
+                if (patron != null) {
+                    addPatron(patron);
                 }
             }
 
@@ -60,14 +85,42 @@ public class PatronCollection extends EntityBase{
     }
 
     //----------------------------------------------------------------------------------
-    private void addBook(Book a) {
+    private void addPatron(Patron a) {
         //accounts.add(a);
         int index = findIndexToAdd(a);
-        bookList.insertElementAt(a, index); // To build up a collection sorted on some key
+        patronList.insertElementAt(a, index); // To build up a collection sorted on some key
     }
 
     //----------------------------------------------------------------------------------
-    private int findIndexToAdd(Book a) {
+    private int findIndexToAdd(Patron a) {
+        int low=0;
+        int high = patronList.size()-1;
+        int middle;
+
+        while (low <=high)
+        {
+            middle = (low+high)/2;
+
+            Patron midSession = patronList.elementAt(middle);
+
+            int result = Patron.compare(a,midSession);
+
+            if (result ==0)
+            {
+                return middle;
+            }
+            else if (result<0)
+            {
+                high=middle-1;
+            }
+            else
+            {
+                low=middle+1;
+            }
+
+
+        }
+        return low;
     }
 
     @Override

@@ -1,7 +1,7 @@
 
 import java.util.Properties;
-import model.model.Book;
-import model.model.Patron;
+import model.model.*;
+
 
 import model.*;
 
@@ -26,6 +26,15 @@ public class TestMain
 		  
 		    Patron pat = new Patron("1");
 			System.out.println(pat.toString());
+
+			BookCollection bkc = new BookCollection();
+			bkc.findBooksWithAuthorLike("Kyle Adams");
+
+			PatronCollection pc = new PatronCollection();
+			pc.findPatronsWithNameLike("Donald");
+
+			System.out.println(bkc.toString());
+			System.out.println(pc.toString());
 		  
 	    
 	 

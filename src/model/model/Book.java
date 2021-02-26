@@ -92,7 +92,9 @@ public class Book extends EntityBase{
 		mySchema = getSchemaInfo(tableName);
 	}
     }
-	
+
+
+
 	//-----------------------------------------------------------------------------------
 	public void update()
 	{
