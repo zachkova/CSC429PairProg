@@ -28,16 +28,27 @@ public class TestMain
 			System.out.println(pat.toString());
 
 			BookCollection bkc = new BookCollection();
-			bkc.findBooksWithAuthorLike("Kyle Adams");
+			bkc.findBooksWithAuthorLike("Charles Dickens");
+
+			PatronCollection oT	= new PatronCollection();
+			oT.findPatronsOlderThan("2020-01-07");
+
+			//PatronCollection yT	= new PatronCollection();
+			//yT.findPatronsYoungerThan("20200107");
+
+			PatronCollection zL = new PatronCollection();
+			zL.findPatronsAtZipCode("12345");
 
 			PatronCollection pc = new PatronCollection();
 			pc.findPatronsWithNameLike("Donald");
 
-			System.out.println(bkc.toString());
-			System.out.println(pc.toString());
-		  
-	    
-	 
+			System.out.println("Authors like: " + bkc.toString());
+			System.out.println("older than: " + oT.toString());
+			//System.out.println("younger than: " + yT.toString());
+			System.out.println("with zip like: " + zL.toString());
+			System.out.println("with name like: " + pc.toString());
+
+
           }
           catch (Exception ex) 
           {

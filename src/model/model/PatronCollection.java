@@ -29,14 +29,36 @@ public class PatronCollection extends EntityBase{
     //----------------------------------------------------------
     public void findPatronsOlderThan(String date) {
 
-        String query = "SELECT * FROM " + myTableName + "WHERE (pubYear < " + date + ")";
+        String query = "SELECT * FROM " + myTableName + "WHERE (dateOfBirth > '%" + date + "%')";
         try {
             queryBuilder(query);
         }
         catch (Exception x){
             System.out.println("Error" + x);
         }
+    }
 
+    //----------------------------------------------------------
+    public void findPatronsYoungerThan(String date) {
+
+        String query = "SELECT * FROM " + myTableName + "WHERE (dateOfBirth > " + date + ")";
+        try {
+            queryBuilder(query);
+        }
+        catch (Exception x){
+            System.out.println("Error" + x);
+        }
+    }
+
+    //----------------------------------------------------------
+    public void findPatronsAtZipCode(String zip)
+    {
+        String query = "SELECT * FROM " + myTableName + " WHERE (zip LIKE '%" + zip + "%')";
+        try {
+            queryBuilder(query);
+        } catch (Exception x) {
+            System.out.println("Error: "+ x);
+        }
     }
 
     //----------------------------------------------------------
@@ -78,7 +100,7 @@ public class PatronCollection extends EntityBase{
             }
 
         } else {
-            throw new InvalidPrimaryKeyException("No books matching criteria found");
+            throw new InvalidPrimaryKeyException("No patrons matching criteria found");
         }
 
 
