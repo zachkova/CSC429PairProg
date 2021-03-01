@@ -29,7 +29,8 @@ public class PatronCollection extends EntityBase{
     //----------------------------------------------------------
     public void findPatronsOlderThan(String date) {
 
-        String query = "SELECT * FROM " + myTableName + "WHERE (dateOfBirth > '%" + date + "%')";
+        String query = "SELECT * FROM " + myTableName + " WHERE (dateOfBirth < '" + date + "')";
+        System.out.println(query);
         try {
             queryBuilder(query);
         }
