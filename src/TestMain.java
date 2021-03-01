@@ -33,8 +33,8 @@ public class TestMain
 			PatronCollection oT	= new PatronCollection();
 			oT.findPatronsOlderThan("2020-01-07");
 
-			//PatronCollection yT	= new PatronCollection();
-			//yT.findPatronsYoungerThan("20200107");
+			PatronCollection yT	= new PatronCollection();
+			yT.findPatronsYoungerThan("20200107");
 
 			PatronCollection zL = new PatronCollection();
 			zL.findPatronsAtZipCode("12345");
@@ -44,7 +44,7 @@ public class TestMain
 
 			System.out.println("Authors like: " + bkc.toString());
 			System.out.println("older than: " + oT.toString());
-			//System.out.println("younger than: " + yT.toString());
+			System.out.println("younger than: " + yT.toString());
 			System.out.println("with zip like: " + zL.toString());
 			System.out.println("with name like: " + pc.toString());
 

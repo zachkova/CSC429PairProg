@@ -42,7 +42,7 @@ public class PatronCollection extends EntityBase{
     //----------------------------------------------------------
     public void findPatronsYoungerThan(String date) {
 
-        String query = "SELECT * FROM " + myTableName + "WHERE (dateOfBirth > " + date + ")";
+        String query = "SELECT * FROM " + myTableName + " WHERE (dateOfBirth > " + date + ")";
         try {
             queryBuilder(query);
         }
