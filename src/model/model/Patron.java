@@ -62,6 +62,13 @@ public class Patron extends EntityBase{
         this.myRegistry.setDependencies(this.dependencies);
      }
 
+    //-----------------------------------------------------------------------------
+    public static int compare(Patron a, Patron b) {
+        String firstPatron = (String)a.getState("name");
+        String secondPatron = (String)b.getState("name");
+        return firstPatron.compareTo(secondPatron);
+    }
+
     @Override
     public Object getState(String key) {
         return persistentState.getProperty(key);
