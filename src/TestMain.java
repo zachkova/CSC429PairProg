@@ -8,9 +8,8 @@ import model.*;
 public class TestMain
 {
 
-       public static void main(String[] args)
-       {
-          try
+       public static void main(String[] args) {
+          /*try
           {
 
 			  Scanner sc = new Scanner(System.in);  // Create a Scanner object
@@ -117,11 +116,14 @@ public class TestMain
 			System.out.println("younger than: " + yT.toString());
 			System.out.println("with zip like: " + zL.toString());
 			System.out.println("with name like: " + pc.toString());
-			*/
+
           }
           catch (Exception ex) 
           {
 			System.out.println("Error in accessing Kyle stupid database: " + ex.toString());
 		  }
        }
+           */
+
+	   }
 }

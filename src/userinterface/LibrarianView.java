@@ -15,8 +15,9 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import model.model.Librarian;
 
-public class GUI extends Application{
+public class LibrarianView extends Application{
     public static void main(String[] args) {
         launch(args);
     }
@@ -31,12 +32,15 @@ public class GUI extends Application{
         Button sp = new Button();
         Button done = new Button();
 
+        Librarian lb = new Librarian();
+
         nb.setText("Insert New Book");
         nb.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Button Test NB");
+                lb.createNewBook();
             }
         });
 

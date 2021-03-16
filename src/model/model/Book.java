@@ -14,6 +14,7 @@ public class Book extends EntityBase{
     protected Properties dependencies;
     private String updateStatusMessage = "";
 
+
     public Book(String bookId) throws InvalidPrimaryKeyException {
         super(myTableName);
         this.setDependencies();
@@ -42,6 +43,12 @@ public class Book extends EntityBase{
         }
     }
 
+
+    public void Book() {
+        Properties persistentState = new Properties();
+    }
+
+
     public Book(Properties props) {
         super(myTableName);
         this.setDependencies();
@@ -56,6 +63,7 @@ public class Book extends EntityBase{
             }
         }
      }
+
 
     public static int compare(Book a, Book b) {
         String firstBookTitle = (String)a.getState("bookTitle");
