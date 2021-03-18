@@ -2,12 +2,15 @@ package userinterface;
 
 import impresario.IModel;
 
+import java.util.Vector;
+
 //==============================================================================
 public class ViewFactory {
 
 	public static View createView(String viewName, IModel model)
 	{
-		if(viewName.equals("TellerView") == true)
+
+		/*if(viewName.equals("TellerView") == true)
 		{
 			return new TellerView(model);
 		}
@@ -63,15 +66,21 @@ public class ViewFactory {
 		{
 			return new TransferReceipt(model);
 		}
-		else
+
+		 */
+
+		if(viewName.equals("LibrarianView") == true) {
+			return new LibrarianView(model);
+		}
+		else {
 			return null;
+		}
 	}
 
 
-	/*
-	public static Vector createVectorView(String viewName, IModel model)
-	{
-		if(viewName.equals("SOME VIEW NAME") == true)
+
+	public static Vector createVectorView(String viewName, IModel model) {
+		/*if(viewName.equals("SOME VIEW NAME") == true)
 		{
 			//return [A NEW VECTOR VIEW OF THAT NAME TYPE]
 		}
@@ -79,5 +88,7 @@ public class ViewFactory {
 			return null;
 	}
 	*/
+		return null;
+	}
 
 }

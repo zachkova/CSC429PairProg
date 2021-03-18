@@ -1,2 +1,3 @@
 [2/24/21 6:28 PM]|JDBCBroker|JDBCBroker|Error|NOTAG|null<Could not load driver class[com.mysql.jdbc.Driver]>
 [2/25/21 12:33 PM]|JDBCBroker|JDBCBroker|Error|NOTAG|null<Could not load driver class[com.mysql.jdbc.Driver]>
+[3/16/21 3:48 PM]|Library|Library.<init>|Error|NOTAG|null<Unable to create Librarian object>
