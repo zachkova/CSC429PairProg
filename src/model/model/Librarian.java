@@ -144,6 +144,11 @@ public class Librarian implements IView, IModel
             createAndShowPatronView();
         }
         else
+            if (key.equals("CancelTransaction") == true)
+            {
+              createAndShowLibrarianView();
+            }
+        else
         if ((key.equals("Deposit") == true) || (key.equals("Withdraw") == true) ||
                 (key.equals("Transfer") == true) || (key.equals("BalanceInquiry") == true) ||
                 (key.equals("ImposeServiceCharge") == true))

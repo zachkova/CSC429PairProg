@@ -132,6 +132,7 @@ public class PatronView extends View
         grid.add(address, 1, 2);
 
         Text patCity = new Text(" Patron's City : ");
+        // Kyle is Irish!
         patCity.setFont(myFont);
         patCity.setWrappingWidth(150);
         patCity.setTextAlignment(TextAlignment.RIGHT);
