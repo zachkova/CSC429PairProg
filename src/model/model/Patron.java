@@ -118,6 +118,13 @@ public class Patron extends EntityBase{
 		return "Patron: ID: " + getState("patronId") + " Name: " + getState("name") + " DOB: " + getState("dateOfBirth");
     }
 
+    public static int compare(Patron a, Patron b) {
+        String ba = (String) a.getState("name");
+        String bb = (String) b.getState("name");
+        return ba.compareTo(bb);
+    }
+    //ADD COMPARE TO METHOD
+
     @Override
 	//------------------------------------------------------------------------------------
     protected void initializeSchema(String tableName) {
@@ -127,8 +134,4 @@ public class Patron extends EntityBase{
 			mySchema = getSchemaInfo(tableName);
 		}
     }
-	
-	
-	
-	
 }
