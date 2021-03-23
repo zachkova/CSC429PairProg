@@ -30,6 +30,7 @@ import model.model.Librarian;
 
 /** The class containing the Teller View  for the ATM application */
 //==============================================================
+    /*
 public class BookView extends View
 {
 
@@ -216,6 +217,7 @@ public class BookView extends View
      * Display error message
      */
     //----------------------------------------------------------
+/*
     public void displayErrorMessage(String message)
     {
         statusLog.displayErrorMessage(message);
@@ -225,6 +227,7 @@ public class BookView extends View
      * Clear error message
      */
     //----------------------------------------------------------
+/*
     public void clearErrorMessage()
     {
         statusLog.clearErrorMessage();
@@ -232,4 +235,4 @@ public class BookView extends View
 
 }
 
-
+*/

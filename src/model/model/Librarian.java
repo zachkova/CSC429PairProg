@@ -39,10 +39,11 @@ public class Librarian implements IView, IModel
     private Hashtable<String, Scene> myViews;
     private Stage	  	myStage;
 
-    private String loginErrorMessage = "";
+    private String bookErrorMessage = "";
     private String transactionErrorMessage = "";
 
     private Book myBook;
+    private Patron myPatron;
 
     // constructor for this class
     //----------------------------------------------------------
@@ -137,9 +138,10 @@ public class Librarian implements IView, IModel
            createAndShowBookView();
         }
         else
-        if (key.equals("CancelTransaction") == true)
+        if (key.equals("addPatron") == true)
         {
-            createAndShowTransactionChoiceView();
+            myPatron = new Patron();
+            createAndShowPatronView();
         }
         else
         if ((key.equals("Deposit") == true) || (key.equals("Withdraw") == true) ||
@@ -193,13 +195,13 @@ public class Librarian implements IView, IModel
         }
         catch (InvalidPrimaryKeyException ex)
         {
-            loginErrorMessage = "ERROR: " + ex.getMessage();
+           // loginErrorMessage = "ERROR: " + ex.getMessage();
             return false;
         }
         catch (PasswordMismatchException exec)
         {
 
-            loginErrorMessage = "ERROR: " + exec.getMessage();
+           // loginErrorMessage = "ERROR: " + exec.getMessage();
             return false;
         }
     }
@@ -266,6 +268,39 @@ public class Librarian implements IView, IModel
 
     }
 
+    //------------------------------------------------------------
+    private void createAndShowBookView()
+    {
+        Scene currentScene = (Scene)myViews.get("BookView");
+
+        if (currentScene == null)
+        {
+            // create our initial view
+            View newView = ViewFactory.createView("BookView", this); // USE VIEW FACTORY
+            currentScene = new Scene(newView);
+            myViews.put("BookView", currentScene);
+        }
+
+        swapToView(currentScene);
+
+    }
+
+    //------------------------------------------------------------
+    private void createAndShowPatronView()
+    {
+        Scene currentScene = (Scene)myViews.get("PatronView");
+
+        if (currentScene == null)
+        {
+            // create our initial view
+            View newView = ViewFactory.createView("PatronView", this); // USE VIEW FACTORY
+            currentScene = new Scene(newView);
+            myViews.put("PatronView", currentScene);
+        }
+
+        swapToView(currentScene);
+
+    }
 
     /** Register objects to receive state updates. */
     //----------------------------------------------------------

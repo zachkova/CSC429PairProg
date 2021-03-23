@@ -42,6 +42,12 @@ public class Patron extends EntityBase{
         }
     }
 
+    public Patron() {
+        super(myTableName);
+        this.setDependencies();
+        this.persistentState = new Properties();
+
+    }
     public Patron(Properties props) {
         super(myTableName);
         this.setDependencies();
