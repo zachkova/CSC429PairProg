@@ -14,7 +14,6 @@ public class Book extends EntityBase{
     protected Properties dependencies;
     private String updateStatusMessage = "";
 
-
     public Book(String bookId) throws InvalidPrimaryKeyException {
         super(myTableName);
         this.setDependencies();
@@ -43,12 +42,6 @@ public class Book extends EntityBase{
         }
     }
 
-
-    public void Book() {
-        Properties persistentState = new Properties();
-    }
-
-
     public Book(Properties props) {
         super(myTableName);
         this.setDependencies();
@@ -62,80 +55,82 @@ public class Book extends EntityBase{
                 this.persistentState.setProperty(kyle, kyleGF);
             }
         }
-     }
+    }
 
+    //-----------------------------------------------------------------------------
+    private void setDependencies(){
+        this.dependencies = new Properties();
+        this.myRegistry.setDependencies(this.dependencies);
+    }
 
+    @Override
+    //----------------------------------------------------------------------------
+    public Object getState(String key) {
+        return persistentState.getProperty(key);
+    }
+
+    @Override
+    //----------------------------------------------------------------------------
+    public void stateChangeRequest(String key, Object value) {
+
+    }
+
+    //-----------------------------------------------------------------------------
     public static int compare(Book a, Book b) {
         String firstBookTitle = (String)a.getState("bookTitle");
         String secondBookTitle = (String)b.getState("bookTitle");
         return firstBookTitle.compareTo(secondBookTitle);
     }
 
-    private void setDependencies(){
-        this.dependencies = new Properties();
-        this.myRegistry.setDependencies(this.dependencies);
-     }
-
-    @Override
-    public Object getState(String key) {
-        return persistentState.getProperty(key);
-    }
-
-    @Override
-    public void stateChangeRequest(String key, Object value) {
-
-    }
-
+    //-----------------------------------------------------------------------------
     public String toString()
     {
-	return "Book: ID: " + getState("bookId") + " Title: " + getState("bookTitle");
+        return "Book: ID: " + getState("bookId") + " Title: " + getState("bookTitle");
     }
 
     @Override
-	//------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------
     protected void initializeSchema(String tableName) {
 
-	if (mySchema == null)
-	{
-		mySchema = getSchemaInfo(tableName);
-	}
+        if (mySchema == null)
+        {
+            mySchema = getSchemaInfo(tableName);
+        }
+    }
+
+    //-----------------------------------------------------------------------------------
+    public void update()
+    {
+        updateStateInDatabase();
+    }
+
+    //-----------------------------------------------------------------------------------
+    private void updateStateInDatabase()
+    {
+        try
+        {
+            if (persistentState.getProperty("bookId") != null)
+            {
+                Properties whereClause = new Properties();
+                whereClause.setProperty("bookId", persistentState.getProperty("bookId"));
+                updatePersistentState(mySchema, persistentState, whereClause);
+                updateStatusMessage = "Book data for book number : " + persistentState.getProperty("bookId") + " updated successfully in database!";
+            }
+            else
+            {
+                Integer bookId =
+                        insertAutoIncrementalPersistentState(mySchema, persistentState);
+                persistentState.setProperty("bookId", "" + bookId.intValue());
+                updateStatusMessage = "Book data for new Book : " +  persistentState.getProperty("bookId")
+                        + "installed successfully in database!";
+            }
+        }
+        catch (SQLException ex)
+        {
+            updateStatusMessage = "Error in installing Book data in database!";
+        }
+        //DEBUG System.out.println("updateStateInDatabase " + updateStatusMessage);
     }
 
 
-
-	//-----------------------------------------------------------------------------------
-	public void update()
-	{
-		updateStateInDatabase();
-	}
-	
-	//-----------------------------------------------------------------------------------
-	private void updateStateInDatabase() 
-	{
-		try
-		{
-			if (persistentState.getProperty("bookId") != null)
-			{
-				Properties whereClause = new Properties();
-				whereClause.setProperty("bookId", persistentState.getProperty("bookId"));
-				updatePersistentState(mySchema, persistentState, whereClause);
-				updateStatusMessage = "Book data for book number : " + persistentState.getProperty("bookId") + " updated successfully in database!";
-			}
-			else
-			{
-				Integer bookId =
-					insertAutoIncrementalPersistentState(mySchema, persistentState);
-				persistentState.setProperty("bookId", "" + bookId.intValue());
-				updateStatusMessage = "Book data for new Book : " +  persistentState.getProperty("bookId")
-					+ "installed successfully in database!";
-			}
-		}
-		catch (SQLException ex)
-		{
-			updateStatusMessage = "Error in installing Book data in database!";
-		}
-		//DEBUG System.out.println("updateStateInDatabase " + updateStatusMessage);
-	}
-	
-	
 }

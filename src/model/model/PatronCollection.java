@@ -11,111 +11,124 @@ import exception.InvalidPrimaryKeyException;
 import event.Event;
 import database.*;
 
-public class PatronCollection extends EntityBase{
 
+
+/** The class containing the BookCollection */
+//==============================================================
+public class PatronCollection  extends EntityBase
+{
     private static final String myTableName = "Patron";
 
     private Vector<Patron> patronList;
     // GUI Components
 
 
+
     // constructor for this class
     //----------------------------------------------------------
-    public PatronCollection() {
+    public PatronCollection()
+    {
         super(myTableName);
         patronList = new Vector<Patron>();
     }
 
     //----------------------------------------------------------
-    public void findPatronsOlderThan(String date) {
-
-        String query = "SELECT * FROM " + myTableName + " WHERE (dateOfBirth < '" + date + "')";
-        System.out.println(query);
-        try {
-            queryBuilder(query);
-        }
-        catch (Exception x){
-            System.out.println("Error" + x);
-        }
-    }
-
-    //----------------------------------------------------------
-    public void findPatronsYoungerThan(String date) {
-
-        String query = "SELECT * FROM " + myTableName + " WHERE (dateOfBirth > " + date + ")";
-        try {
-            queryBuilder(query);
-        }
-        catch (Exception x){
-            System.out.println("Error" + x);
-        }
-    }
-
-    //----------------------------------------------------------
-    public void findPatronsAtZipCode(String zip)
+    public void findPatronsOlderThan(String date)
     {
-        String query = "SELECT * FROM " + myTableName + " WHERE (zip LIKE '%" + zip + "%')";
+
+        String query = "SELECT * FROM " + myTableName + " WHERE (dateOfBirth < " + date + ")";
         try {
             queryBuilder(query);
         } catch (Exception x) {
             System.out.println("Error: "+ x);
         }
+
+
     }
 
     //----------------------------------------------------------
-    public String toString()
+    public void findPatronsYoungerThan(String date)
     {
-        String retValue = "";
-        for (int cnt = 0; cnt < patronList.size(); cnt++)
-            retValue += patronList.get(cnt).toString() + "\n";
-        return retValue;
+
+        String query = "SELECT * FROM " + myTableName + " WHERE (dateOfBirth > " + date + ")";
+        try {
+            queryBuilder(query);
+        } catch (Exception x) {
+            System.out.println("Error: "+ x);
+        }
+
+
     }
 
-    //---------------------------------------------------------------------------------
+    //----------------------------------------------------------
+    public void findPatronsAtZipCode(String zip)
+    {
+
+        String query = "SELECT * FROM " + myTableName + " WHERE (zip = " + zip + ")";
+        try {
+            queryBuilder(query);
+        } catch (Exception x) {
+            System.out.println("Error: "+ x);
+        }
+
+
+    }
+    //----------------------------------------------------------
     public void findPatronsWithNameLike(String name)
     {
+
         String query = "SELECT * FROM " + myTableName + " WHERE (name LIKE '%" + name + "%')";
         try {
             queryBuilder(query);
         } catch (Exception x) {
             System.out.println("Error: "+ x);
         }
+
+
     }
 
-
     //---------------------------------------------------------------------------------
-    public void queryBuilder(String query) throws Exception {
+    public void queryBuilder(String query) throws Exception{
         Vector allDataRetrieved = getSelectQueryResult(query);
 
-        if (allDataRetrieved != null) {
+        if (allDataRetrieved != null)
+        {
             patronList = new Vector<Patron>();
 
-            for (int index = 0; index < allDataRetrieved.size(); index++) {
-                Properties nextPatronData = (Properties) allDataRetrieved.elementAt(index);
+            for (int index = 0; index < allDataRetrieved.size(); index++)
+            {
+                Properties nextPatronData = (Properties)allDataRetrieved.elementAt(index);
 
                 Patron patron = new Patron(nextPatronData);
 
-                if (patron != null) {
+                if (patron != null)
+                {
                     addPatron(patron);
                 }
             }
 
-        } else {
-            throw new InvalidPrimaryKeyException("No patrons matching criteria found");
+        }
+        else
+        {
+            throw new InvalidPrimaryKeyException("No books matching criteria found");
         }
 
 
+
     }
 
     //----------------------------------------------------------------------------------
-    private void addPatron(Patron a) {
+    private void addPatron(Patron p)
+    {
         //accounts.add(a);
-        int index = findIndexToAdd(a);
-        patronList.insertElementAt(a, index); // To build up a collection sorted on some key
+        int index = findIndexToAdd(p);
+        patronList.insertElementAt(p,index); // To build up a collection sorted on some key
     }
 
     //----------------------------------------------------------------------------------
-    private int findIndexToAdd(Patron a) {
+    private int findIndexToAdd(Patron p)
+    {
+        //users.add(u);
         int low=0;
         int high = patronList.size()-1;
         int middle;
@@ -126,7 +139,7 @@ public class PatronCollection extends EntityBase{
 
             Patron midSession = patronList.elementAt(middle);
 
-            int result = Patron.compare(a,midSession);
+            int result = Patron.compare(p,midSession);
 
             if (result ==0)
             {
@@ -146,18 +159,80 @@ public class PatronCollection extends EntityBase{
         return low;
     }
 
-    @Override
-    public Object getState(String key) {
+
+
+    //----------------------------------------------------------
+    public Object getState(String key)
+    {
         return null;
     }
 
-    @Override
-    public void stateChangeRequest(String key, Object value) {
+    //---------------------------------------------------------------
+    public void stateChangeRequest(String key, Object value)
+    {
 
+        myRegistry.updateSubscribers(key, this);
     }
 
-    @Override
-    protected void initializeSchema(String tableName) {
+    //----------------------------------------------------------
+    public Patron retrieve(String patronId)
+    {
+        Patron retValue = null;
+        for (int cnt = 0; cnt < patronList.size(); cnt++)
+        {
+            Patron nextPatron = patronList.elementAt(cnt);
+            String nextPatronId = (String)nextPatron.getState("patronId");
+            if (nextPatronId.equals(patronId) == true)
+            {
+                retValue = nextPatron;
+                return retValue; // we should say 'break;' here
+            }
+        }
 
+        return retValue;
+    }
+
+    /** Called via the IView relationship */
+    //----------------------------------------------------------
+    public void updateState(String key, Object value)
+    {
+        stateChangeRequest(key, value);
+    }
+
+/*
+	//------------------------------------------------------
+	protected void createAndShowView()
+	{
+
+		Scene localScene = myViews.get("AccountCollectionView");
+
+		if (localScene == null)
+		{
+				// create our new view
+				View newView = ViewFactory.createView("AccountCollectionView", this);
+				localScene = new Scene(newView);
+				myViews.put("AccountCollectionView", localScene);
+		}
+		// make the view visible by installing it into the frame
+		swapToView(localScene);
+
+	}*/
+
+    //-----------------------------------------------------------------------------------
+    public String toString()
+    {
+        String retValue = "";
+        for (int cnt = 0; cnt < patronList.size(); cnt++)
+            retValue += patronList.get(cnt).toString() + "\n";
+        return retValue;
+    }
+
+    //-----------------------------------------------------------------------------------
+    protected void initializeSchema(String tableName)
+    {
+        if (mySchema == null)
+        {
+            mySchema = getSchemaInfo(tableName);
+        }
     }
 }

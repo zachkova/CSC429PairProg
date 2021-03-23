@@ -1,129 +1,103 @@
 
 import java.util.Properties;
-import model.model.*;
+import model.model.Book;
+import model.model.BookCollection;
+import model.model.Patron;
 import java.util.*;
+import java.util.Scanner;
+
 
 import model.*;
+import model.model.PatronCollection;
 
 public class TestMain
 {
 
-       public static void main(String[] args) {
-          /*try
-          {
+       public static void main(String[] args)
+       {
+          Scanner input = new Scanner(System.in);
+          Properties prop = new Properties();
+          BookCollection bookList = new BookCollection();
+          PatronCollection patronList = new PatronCollection();
 
-			  Scanner sc = new Scanner(System.in);  // Create a Scanner object
+          //Variables for Books
+          String bTitle,bAuthor, bYear;
 
-			  //create properties object
-			  Properties add = new Properties();
-			  Properties add1 = new Properties();
-
-			 //USER IO creating a new Book
-			  System.out.print("Enter bookTitle: ");
-			  add.setProperty("bookTitle", sc.nextLine());
-			  System.out.print("Enter author: ");
-			  add.setProperty("author", sc.nextLine());
-			  System.out.print("Enter pubYear: ");
-			  add.setProperty("pubYear", sc.nextLine());
-			  System.out.print("Enter status: ");
-			  add.setProperty("status", sc.nextLine());
-
-			  //create book object for properties set
-			  //Book bk = new Book(add);
-			  //bk.update();
-
-			  //User IO adding Patron
-
-			  System.out.print("Enter name: ");
-			  add1.setProperty("name", sc.nextLine());
-			  System.out.print("Enter address: ");
-			  add1.setProperty("address", sc.nextLine());
-			  System.out.print("Enter city: ");
-			  add1.setProperty("city", sc.nextLine());
-			  System.out.print("Enter stateCode: ");
-			  add1.setProperty("stateCode", sc.nextLine());
-			  System.out.print("Enter zip: ");
-			  add1.setProperty("zip", sc.nextLine());
-			  System.out.print("Enter email: ");
-			  add1.setProperty("email", sc.nextLine());
-			  System.out.print("Enter dateOfBirth: ");
-			  add1.setProperty("dateOfBirth", sc.nextLine());
-			  System.out.print("Enter status: ");
-			  add1.setProperty("Status", sc.nextLine());
-
-			  Patron p = new Patron(add1);
-			  p.update();
-
-
-
-			  System.out.print("Type in title like: ");
-			  BookCollection bkc = new BookCollection();
-			  bkc.findBooksWithTitleLike(sc.nextLine());
-			  System.out.print(bkc.toString());
-
-
-			  System.out.print("Type year before book: ");
-			  bkc.findBooksOlderThan(sc.nextLine());
-			  System.out.print(bkc.toString());
-
-			  System.out.print("Patrons younger than year: ");
-			  PatronCollection yT	= new PatronCollection();
-			  yT.findPatronsOlderThan(sc.nextLine());
-			  System.out.println("younger than: " + yT.toString());
-
-			  System.out.println("Find patrons at zip code: ");
-			  yT.findPatronsAtZipCode(sc.nextLine());
-			  System.out.println("at zip: " + yT.toString());
+          //variables for Patrons
+          String pName,pAddress, pCity, pState,pZip, pEmail, pDOB;
 
 
 
 
+          System.out.println("Entering three books...");
+          for(int i = 0; i <= 2; i++) {
+             //prop = new Properties();
+             System.out.println("Please enter Book's Title");
+             bTitle = input.nextLine();
+             System.out.println("Please enter Book's Author");
+             bAuthor = input.nextLine();
+             System.out.println("Please enter Book's year of publication");
+             bYear = input.nextLine();
 
+             prop.setProperty("bookTitle", bTitle);
+             prop.setProperty("author", bAuthor);
+             prop.setProperty("pubYear", bYear);
 
-          	/*
-			Book bk = new Book("1");
-			System.out.println(bk.toString());
-		  
-			Properties p = new Properties();
-			p.setProperty("bookTitle", "I hate Sandeep Mitra");
-			p.setProperty("author", "Kyle Adams");
-			p.setProperty("pubYear", "2020");
-			p.setProperty("status", "Active");
-			
-			Book bk2 = new Book(p);
-			bk2.update();
-		  
-		    Patron pat = new Patron("1");
-			System.out.println(pat.toString());
-
-			BookCollection bkc = new BookCollection();
-			bkc.findBooksWithAuthorLike("Charles Dickens");
-
-			PatronCollection oT	= new PatronCollection();
-			oT.findPatronsOlderThan("2020-01-07");
-
-			PatronCollection yT	= new PatronCollection();
-			yT.findPatronsYoungerThan("20200107");
-
-			PatronCollection zL = new PatronCollection();
-			zL.findPatronsAtZipCode("12345");
-
-			PatronCollection pc = new PatronCollection();
-			pc.findPatronsWithNameLike("Donald");
-
-			System.out.println("Authors like: " + bkc.toString());
-			System.out.println("older than: " + oT.toString());
-			System.out.println("younger than: " + yT.toString());
-			System.out.println("with zip like: " + zL.toString());
-			System.out.println("with name like: " + pc.toString());
-
+             Book book = new Book(prop);
+             book.update();
           }
-          catch (Exception ex) 
-          {
-			System.out.println("Error in accessing Kyle stupid database: " + ex.toString());
-		  }
-       }
-           */
+          System.out.println("Entering three patrons...");
+          for(int index = 0; index <= 2; index++) {
+             //prop = new Properties();
+             System.out.println("Please enter Patron's Name");
+             pName = input.nextLine();
+             System.out.println("Please enter Patron's Address");
+             pAddress = input.nextLine();
+             System.out.println("Please enter Patron's City");
+             pCity = input.nextLine();
+             System.out.println("Please enter Patron's State Code");
+             pState = input.nextLine();
+             System.out.println("Please enter Patron's Zipcode");
+             pZip = input.nextLine();
+             System.out.println("Please enter Patron's Email");
+             pEmail = input.nextLine();
+             System.out.println("Please enter Patron's Date of Birth");
+             pEmail = input.nextLine();
 
-	   }
+             prop.setProperty("name", pName);
+             prop.setProperty("address", pAddress);
+             prop.setProperty("city", pCity);
+             prop.setProperty("stateCode", pState);
+             prop.setProperty("zip", pZip);
+             prop.setProperty("address", pAddress);
+             prop.setProperty("pubYear", pCity);
+
+             Patron patron = new Patron(prop);
+             patron.update();
+          }
+          //test data for part of Books title
+          System.out.println("Please enter a part of a Book's title");
+          bTitle = input.nextLine();
+          bookList.findBooksWithTitleLike(bTitle);
+          System.out.println(bookList.toString());
+
+          //test data for books pub year
+          System.out.println("Please enter Book's year of publication");
+          bYear = input.nextLine();
+          bookList.findBooksOlderThan(bYear);
+          System.out.println(bookList.toString());
+
+          //test data for patrons younger than
+          System.out.println("Please enter Patron's Date of Birth");
+          pDOB = input.nextLine();
+          patronList.findPatronsYoungerThan(pDOB);
+          System.out.println(patronList.toString());
+
+          //test data for Patron Zip
+          System.out.println("Please enter Patron's zipcode");
+          pZip = input.nextLine();
+          patronList.findPatronsAtZipCode(pZip);
+          System.out.println(patronList.toString());
+
+       }
 }
