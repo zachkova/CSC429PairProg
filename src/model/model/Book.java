@@ -57,6 +57,13 @@ public class Book extends EntityBase{
         }
     }
 
+    public Book() {
+        super(myTableName);
+        this.setDependencies();
+        this.persistentState = new Properties();
+
+    }
+
     //-----------------------------------------------------------------------------
     private void setDependencies(){
         this.dependencies = new Properties();
@@ -72,7 +79,7 @@ public class Book extends EntityBase{
     @Override
     //----------------------------------------------------------------------------
     public void stateChangeRequest(String key, Object value) {
-
+        this.persistentState.setProperty(key, (String)value);
     }
 
     //-----------------------------------------------------------------------------
