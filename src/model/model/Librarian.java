@@ -42,6 +42,8 @@ public class Librarian implements IView, IModel
     private String loginErrorMessage = "";
     private String transactionErrorMessage = "";
 
+    private Book myBook;
+
     // constructor for this class
     //----------------------------------------------------------
     public Librarian()
@@ -129,18 +131,10 @@ public class Librarian implements IView, IModel
         // DEBUG System.out.println("Teller.sCR: key = " + key);
 
         //Change this when needed
-        if (key.equals("Login") == true)
+        if (key.equals("addBook") == true)
         {
-            if (value != null)
-            {
-                loginErrorMessage = "";
-
-                boolean flag = loginAccountHolder((Properties)value);
-                if (flag == true)
-                {
-                    createAndShowTransactionChoiceView();
-                }
-            }
+           myBook = new Book();
+           createAndShowBookView();
         }
         else
         if (key.equals("CancelTransaction") == true)
