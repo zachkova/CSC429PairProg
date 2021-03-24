@@ -1,10 +1,13 @@
 // specify the package
+
 package userinterface;
 
 // system imports
 import java.text.NumberFormat;
 import java.util.Properties;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -28,9 +31,8 @@ import impresario.IModel;
 import model.model.Book;
 import model.model.Librarian;
 
-/** The class containing the Teller View  for the ATM application */
-//==============================================================
-    /*
+import javax.swing.*;
+
 public class BookView extends View
 {
 
@@ -39,16 +41,17 @@ public class BookView extends View
     protected TextField newTitle;
     protected TextField pubYear;
 
-    ComboBox comboBox = new ComboBox();
+    protected String[] status = {"Active, Inactive"};
 
     protected Button subButton;
-    protected Button canButton;
+    protected Button doneButton;
 
     // For showing error message
     private MessageView statusLog;
 
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
+
     public BookView( IModel Book)
     {
         super(Book, "BookView");
@@ -62,29 +65,34 @@ public class BookView extends View
         container.getChildren().add(createTitle());
 
         // create a Node (GridPane) for showing data entry fields
-        container.getChildren().add(createFormContents());
+        container.getChildren().add(createFormContent());
 
         // Error message area
-        container.getChildren().add(createStatusLog("                          "));
+        container.getChildren().add(createStatusLog("               "));
 
         getChildren().add(container);
 
         populateFields();
 
         // STEP 0: Be sure you tell your model what keys you are interested in
-        myModel.subscribe("LoginError", this);
+        //myModel.subscribe("LoginError", this);
     }
 
     // Create the label (Text) for the title of the screen
     //-------------------------------------------------------------
     private Node createTitle()
     {
-        Text titleText = new Text("       Book System          ");
+        HBox container = new HBox();
+        container.setAlignment(Pos.CENTER);
+
+        Text titleText = new Text(" New Book ");
         titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        titleText.setWrappingWidth(300);
         titleText.setTextAlignment(TextAlignment.CENTER);
         titleText.setFill(Color.DARKGREEN);
+        container.getChildren().add(titleText);
 
-        return titleText;
+        return container;
     }
 
     // Create the main form contents
@@ -112,61 +120,65 @@ public class BookView extends View
         accNumLabel.setTextAlignment(TextAlignment.RIGHT);
         grid.add(accNumLabel, 0, 1);
 
-        accountNumber = new TextField();
-        accountNumber.setEditable(false);
-        grid.add(accountNumber, 1, 1);
+        newAuthor = new TextField();
+        newAuthor.setEditable(true);
+        grid.add(newAuthor, 1, 1);
 
-        Text acctTypeLabel = new Text(" Account Type : ");
+        Text acctTypeLabel = new Text(" Title : ");
         acctTypeLabel.setFont(myFont);
         acctTypeLabel.setWrappingWidth(150);
         acctTypeLabel.setTextAlignment(TextAlignment.RIGHT);
         grid.add(acctTypeLabel, 0, 2);
 
-        acctType = new TextField();
-        acctType.setEditable(false);
-        grid.add(acctType, 1, 2);
+        newTitle = new TextField();
+        newTitle.setEditable(true);
+        grid.add(newTitle, 1, 2);
 
-        Text balLabel = new Text(" Account Balance : ");
+        Text balLabel = new Text(" Publication Year : ");
         balLabel.setFont(myFont);
         balLabel.setWrappingWidth(150);
         balLabel.setTextAlignment(TextAlignment.RIGHT);
         grid.add(balLabel, 0, 3);
 
-        balance = new TextField();
-        balance.setEditable(false);
-        grid.add(balance, 1, 3);
+        pubYear = new TextField();
+        pubYear.setEditable(true);
+        grid.add(pubYear, 1, 3);
 
-        Text scLabel = new Text(" Service Charge : ");
-        scLabel.setFont(myFont);
-        scLabel.setWrappingWidth(150);
-        scLabel.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(scLabel, 0, 4);
+        final ComboBox comboBox = new ComboBox();
+        comboBox.getItems().addAll(
+                "Active",
+                "Inactive"
+        );
 
-        serviceCharge = new TextField();
-        serviceCharge.setEditable(true);
-        serviceCharge.setOnAction(new EventHandler<ActionEvent>() {
+        comboBox.setValue("Active");
+        grid.add(comboBox, 1, 4);
 
-            @Override
-            public void handle(ActionEvent e) {
-                clearErrorMessage();
-                myModel.stateChangeRequest("ServiceCharge", serviceCharge.getText());
-            }
-        });
-        grid.add(serviceCharge, 1, 4);
 
         HBox doneCont = new HBox(10);
         doneCont.setAlignment(Pos.CENTER);
-        cancelButton = new Button("Back");
-        cancelButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
-        cancelButton.setOnAction(new EventHandler<ActionEvent>() {
+        subButton = new Button("Submit");
+        subButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        subButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                myModel.stateChangeRequest("AccountCancelled", null);
+                myModel.stateChangeRequest("Cancelled", null);
             }
         });
-        doneCont.getChildren().add(cancelButton);
+
+        doneButton = new Button("Done");
+        doneButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        doneButton.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent e) {
+                clearErrorMessage();
+                myModel.stateChangeRequest("Cancelled", null);
+            }
+        });
+        doneCont.getChildren().add(subButton);
+        doneCont.getChildren().add(doneButton);
 
         vbox.getChildren().add(grid);
         vbox.getChildren().add(doneCont);
@@ -186,6 +198,7 @@ public class BookView extends View
     }
 
     //-------------------------------------------------------------
+
     public void populateFields()
     {
 
@@ -194,6 +207,7 @@ public class BookView extends View
     // This method processes events generated from our GUI components.
     // Make the ActionListeners delegate to this method
     //-------------------------------------------------------------
+
     public void processAction(Event evt)
     {
         // DEBUG: System.out.println("TellerView.actionPerformed()");
@@ -217,7 +231,7 @@ public class BookView extends View
      * Display error message
      */
     //----------------------------------------------------------
-/*
+
     public void displayErrorMessage(String message)
     {
         statusLog.displayErrorMessage(message);
@@ -227,12 +241,10 @@ public class BookView extends View
      * Clear error message
      */
     //----------------------------------------------------------
-/*
+
     public void clearErrorMessage()
     {
         statusLog.clearErrorMessage();
     }
 
 }
-
-*/
