@@ -27,6 +27,7 @@ import java.util.Properties;
 
 // project imports
 import impresario.IModel;
+import model.model.Patron;
 
 /** The class containing the Account View  for the ATM application */
 //==============================================================
@@ -217,8 +218,33 @@ public class PatronView extends View
 
         clearErrorMessage();
 
-        String Patron = name.getText();
+        String patron = name.getText();
         String pAddress = address.getText();
+        String pZip = zipcode.getText();
+        String pCity = city.getText();
+        String pState = state.getText();
+        String pEmail = email.getText();
+        String pDOB = dob.getText();
+
+        Properties p = new Properties();
+        p.setProperty("name", patron);
+        p.setProperty("address", pAddress);
+        p.setProperty("city", pCity);
+        p.setProperty("stateCode", pState);
+        p.setProperty("zip", pZip);
+        p.setProperty("email", pEmail);
+        p.setProperty("dateOfBirth", pDOB);
+
+        Patron newPatron = new Patron(p);
+        newPatron.update();
+
+        name.setText("");
+        address.setText("");
+        zipcode.setText("");
+        city.setText("");
+        state.setText("");
+        email.setText("");
+        dob.setText("");
     }
 
 
