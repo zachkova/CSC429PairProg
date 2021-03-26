@@ -20,18 +20,16 @@ import javafx.scene.text.TextAlignment;
 
 
 
-public class SearchView extends View {
+public class BookCollectionView extends View {
 
-    protected TextField bookTitle;
 
     protected Button cancelButton;
-    protected Button submitButton;
 
     // For showing error message
     protected MessageView statusLog;
 
-    public SearchView(IModel Book) {
-        super(Book, "SearchView");
+    public BookCollectionView(IModel Book) {
+        super(Book, "BookCollectionView");
         VBox container = new VBox(10.0D);
         container.setPadding(new Insets(15.0D, 5.0D, 5.0D, 5.0D));
         // Add a title for this panel
@@ -51,7 +49,7 @@ public class SearchView extends View {
     private Node createTitle() {
         HBox var1 = new HBox();
         var1.setAlignment(Pos.CENTER);
-        Text var2 = new Text(" Search Book ");
+        Text var2 = new Text(" Book Collection View ");
         var2.setFont(Font.font("Arial", FontWeight.BOLD, 20.0D));
         var2.setWrappingWidth(300.0D);
         var2.setTextAlignment(TextAlignment.CENTER);
@@ -88,10 +86,7 @@ public class SearchView extends View {
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-
-                //processAction(e);
-
-                myModel.stateChangeRequest("BookCollectionView", null);
+                processAction(e);
             }
         });
 
