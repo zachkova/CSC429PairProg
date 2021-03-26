@@ -1,3 +1,4 @@
 [2/24/21 6:28 PM]|JDBCBroker|JDBCBroker|Error|NOTAG|null<Could not load driver class[com.mysql.jdbc.Driver]>
 [2/25/21 12:33 PM]|JDBCBroker|JDBCBroker|Error|NOTAG|null<Could not load driver class[com.mysql.jdbc.Driver]>
 [3/16/21 3:48 PM]|Library|Library.<init>|Error|NOTAG|null<Unable to create Librarian object>
+[3/25/21 1:10 PM]|Patron|insertAutoIncrementalPersistentState|Error|NOTAG|null<SQL Exception: 0: Data truncation: Incorrect date value: 'a' for column 'dateOfBirth' at row 1>
