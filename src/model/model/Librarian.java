@@ -145,7 +145,7 @@ public class Librarian implements IView, IModel
             createAndShowPatronView();
         }
         else
-        if (key.equals("SearchBook") == true)
+        if (key.equals("SearchView") == true)
         {
             mySearch = new Book();
             createAndShowSearchView();

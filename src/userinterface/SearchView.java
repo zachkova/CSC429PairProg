@@ -7,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -30,7 +31,7 @@ public class SearchView extends View {
     protected MessageView statusLog;
 
     public SearchView(IModel Book) {
-        super(Book, "SearchBook");
+        super(Book, "SearchView");
         VBox container = new VBox(10.0D);
         container.setPadding(new Insets(15.0D, 5.0D, 5.0D, 5.0D));
         // Add a title for this panel
@@ -64,6 +65,8 @@ public class SearchView extends View {
         VBox vbox = new VBox(10);
 
         GridPane grid = new GridPane();
+
+
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
@@ -75,16 +78,11 @@ public class SearchView extends View {
         prompt.setFill(Color.BLACK);
         grid.add(prompt, 0, 0, 2, 1);
 
-        Text label = new Text(" Book Title : ");
-        Font myFont = Font.font("Helvetica", FontWeight.BOLD, 12);
-        label.setFont(myFont);
-        label.setWrappingWidth(150);
-        label.setTextAlignment(TextAlignment.RIGHT);
-        grid.add(label, 0, 1);
 
         bookTitle = new TextField();
         bookTitle.setEditable(true);
-        grid.add(bookTitle, 2, 2);
+        bookTitle.setAlignment(Pos.CENTER);
+        grid.add(bookTitle,0,1,2,1);
 
         submitButton = new Button("Submit");
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -101,6 +99,17 @@ public class SearchView extends View {
                 myModel.stateChangeRequest("CancelTransaction", null);
             }
         });
+
+        HBox buttonCont = new HBox(10);
+        buttonCont.setAlignment(Pos.CENTER);
+        buttonCont.getChildren().add(submitButton);
+        Label space = new Label("               ");
+        buttonCont.setAlignment(Pos.CENTER);
+        buttonCont.getChildren().add(space);
+        buttonCont.setAlignment(Pos.CENTER);
+        buttonCont.getChildren().add(cancelButton);
+        vbox.getChildren().add(grid);
+        vbox.getChildren().add(buttonCont);
 
         return vbox;
     }

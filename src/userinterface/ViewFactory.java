@@ -79,7 +79,7 @@ public class ViewFactory {
 		else if(viewName.equals("PatronView") == true){
 			return new PatronView(model);
 		}
-		else if(viewName.equals("SearchBook") == true){
+		else if(viewName.equals("SearchView") == true){
 			return new SearchView(model);
 		}
 		else
