@@ -32,6 +32,7 @@ import impresario.IModel;
 import model.model.Book;
 import model.model.BookCollection;
 
+
 //==============================================================================
 public class BookCollectionView extends View
 {
