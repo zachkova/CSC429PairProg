@@ -45,6 +45,7 @@ public class Librarian implements IView, IModel
     private Book mySearch;
     private Patron PSearchView;
     private BookCollection bCollection;
+    private PatronCollection pCollection;
 
     // constructor for this class
     //----------------------------------------------------------
@@ -162,6 +163,14 @@ public class Librarian implements IView, IModel
             bCollection = new BookCollection();
             bCollection.findBooksWithTitleLike(titleToSearch);
             createAndShowBookCollectionView();
+
+        }
+        else if (key.equals("PatronCollectionView") == true)
+        {
+            String zipToSearch = (String)value;
+            pCollection = new PatronCollection();
+            pCollection.findPatronsAtZipCode(zipToSearch);
+            createAndShowPatronCollectionView();
 
         }
         else
@@ -365,6 +374,22 @@ public class Librarian implements IView, IModel
             View newView = ViewFactory.createView("BookCollectionView", this); // USE VIEW FACTORY
             currentScene = new Scene(newView);
             myViews.put("BookCollectionView", currentScene);
+        }
+
+        swapToView(currentScene);
+
+    }
+
+    private void createAndShowPatronCollectionView()
+    {
+        Scene currentScene = (Scene)myViews.get("PatronCollectionView");
+
+        if (currentScene == null)
+        {
+            // create our initial view
+            View newView = ViewFactory.createView("PatronCollectionView", this); // USE VIEW FACTORY
+            currentScene = new Scene(newView);
+            myViews.put("PatronCollectionView", currentScene);
         }
 
         swapToView(currentScene);
