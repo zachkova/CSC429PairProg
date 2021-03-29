@@ -45,6 +45,7 @@ public class Librarian implements IView, IModel
     private Book myBook;
     private Patron myPatron;
     private Book mySearch;
+    private Patron PSearchView;
 
     // constructor for this class
     //----------------------------------------------------------
@@ -149,6 +150,12 @@ public class Librarian implements IView, IModel
         {
             mySearch = new Book();
             createAndShowSearchView();
+        }
+        else
+        if (key.equals("PSearchView") == true)
+        {
+            PSearchView = new Patron();
+            createAndShowPSearchView();
         }
 
         else
@@ -320,6 +327,22 @@ public class Librarian implements IView, IModel
             View newView = ViewFactory.createView("SearchView", this); // USE VIEW FACTORY
             currentScene = new Scene(newView);
             myViews.put("SearchView", currentScene);
+        }
+
+        swapToView(currentScene);
+
+    }
+
+    private void createAndShowPSearchView()
+    {
+        Scene currentScene = (Scene)myViews.get("PSearchView");
+
+        if (currentScene == null)
+        {
+            // create our initial view
+            View newView = ViewFactory.createView("PSearchView", this); // USE VIEW FACTORY
+            currentScene = new Scene(newView);
+            myViews.put("PSearchView", currentScene);
         }
 
         swapToView(currentScene);

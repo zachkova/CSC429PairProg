@@ -1,14 +1,20 @@
 package userinterface;
 
-import impresario.IModel;
+// system imports
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -18,101 +24,223 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+import java.util.Vector;
+import java.util.Enumeration;
 
+// project imports
+import impresario.IModel;
+import model.model.Book;
+import model.model.BookCollection;
 
-public class BookCollectionView extends View {
-
-
+//==============================================================================
+public class BookCollectionView extends View
+{
+    protected TableView<BookTableModel> tableOfBooks;
     protected Button cancelButton;
+    protected Button submitButton;
 
-    // For showing error message
     protected MessageView statusLog;
 
-    public BookCollectionView(IModel Book) {
-        super(Book, "BookCollectionView");
-        VBox container = new VBox(10.0D);
-        container.setPadding(new Insets(15.0D, 5.0D, 5.0D, 5.0D));
-        // Add a title for this panel
-        container.getChildren().add(createTitle());
 
-        // create our GUI components, add them to this Container
+    //--------------------------------------------------------------------------
+    public BookCollectionView(IModel Book)
+    {
+        super(Book, "BookCollectionView");
+
+        // create a container for showing the contents
+        VBox container = new VBox(10);
+        container.setPadding(new Insets(15, 5, 5, 5));
+
+        // create our GUI components, add them to this panel
+        container.getChildren().add(createTitle());
         container.getChildren().add(createFormContent());
 
-        container.getChildren().add(createStatusLog("             "));
+        // Error message area
+        container.getChildren().add(createStatusLog("                                            "));
 
         getChildren().add(container);
 
         populateFields();
-
     }
 
-    private Node createTitle() {
-        HBox var1 = new HBox();
-        var1.setAlignment(Pos.CENTER);
-        Text var2 = new Text(" Book Collection View ");
-        var2.setFont(Font.font("Arial", FontWeight.BOLD, 20.0D));
-        var2.setWrappingWidth(300.0D);
-        var2.setTextAlignment(TextAlignment.CENTER);
-        var2.setFill(Color.DARKGREEN);
-        var1.getChildren().add(var2);
-        return var1;
+    //--------------------------------------------------------------------------
+    protected void populateFields()
+    {
+        getEntryTableModelValues();
     }
 
-    private VBox createFormContent() {
+    //--------------------------------------------------------------------------
+    protected void getEntryTableModelValues()
+    {
 
+        ObservableList<BookTableModel> tableData = FXCollections.observableArrayList();
+        try
+        {
+            BookCollection BookCollection = (BookCollection)myModel.getState("BookList");
+
+            Vector entryList = (Vector)BookCollection.getState("Book");
+            Enumeration entries = entryList.elements();
+
+            while (entries.hasMoreElements() == true)
+            {
+                Book nextBook = (Book)entries.nextElement();
+                Vector<String> view = nextBook.getPSearchView();
+
+                // add this list entry to the list
+                BookTableModel nextTableRowData = new BookTableModel(view);
+                tableData.add(nextTableRowData);
+
+            }
+
+            tableOfBooks.setItems(tableData);
+        }
+        catch (Exception e) {//SQLException e) {
+            // Need to handle this exception
+        }
+    }
+
+    // Create the title container
+    //-------------------------------------------------------------
+    private Node createTitle()
+    {
+        HBox container = new HBox();
+        container.setAlignment(Pos.CENTER);
+
+        Text titleText = new Text(" Book Collection View ");
+        titleText.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        titleText.setWrappingWidth(300);
+        titleText.setTextAlignment(TextAlignment.CENTER);
+        titleText.setFill(Color.DARKGREEN);
+        container.getChildren().add(titleText);
+
+        return container;
+    }
+
+    // Create the main form content
+    //-------------------------------------------------------------
+    private VBox createFormContent()
+    {
         VBox vbox = new VBox(10);
 
         GridPane grid = new GridPane();
-
-
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
         grid.setVgap(10);
         grid.setPadding(new Insets(25, 25, 25, 25));
 
-        Text prompt = new Text("BOOK TITLE");
-        prompt.setWrappingWidth(400);
+        Text prompt = new Text("LIST OF BOOKS");
+        prompt.setWrappingWidth(350);
         prompt.setTextAlignment(TextAlignment.CENTER);
         prompt.setFill(Color.BLACK);
         grid.add(prompt, 0, 0, 2, 1);
 
+        tableOfBooks = new TableView<BookTableModel>();
+        tableOfBooks.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
-        bookTitle = new TextField();
-        bookTitle.setEditable(true);
-        bookTitle.setAlignment(Pos.CENTER);
-        grid.add(bookTitle,0,1,2,1);
+        TableColumn bookIdColumn = new TableColumn("bookId") ;
+        bookIdColumn.setMinWidth(25);
+        bookIdColumn.setCellValueFactory(
+                new PropertyValueFactory<BookTableModel, String>("bookId"));
+
+        TableColumn authorColumn = new TableColumn("author") ;
+        authorColumn.setMinWidth(100);
+        authorColumn.setCellValueFactory(
+                new PropertyValueFactory<BookTableModel, String>("author"));
+
+        TableColumn pubYearColumn = new TableColumn("pubYear") ;
+        pubYearColumn.setMinWidth(25);
+        pubYearColumn.setCellValueFactory(
+                new PropertyValueFactory<BookTableModel, String>("pubYear"));
+
+        TableColumn titleColumn = new TableColumn("title") ;
+        titleColumn.setMinWidth(100);
+        titleColumn.setCellValueFactory(
+                new PropertyValueFactory<BookTableModel, String>("title"));
+
+        TableColumn statusColumn = new TableColumn("status") ;
+        statusColumn.setMinWidth(100);
+        statusColumn.setCellValueFactory(
+                new PropertyValueFactory<AccountTableModel, String>("status"));
+
+        tableOfBooks.getColumns().addAll(bookIdColumn, authorColumn, pubYearColumn,
+                titleColumn, statusColumn);
+
+        tableOfBooks.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event)
+            {
+                if (event.isPrimaryButtonDown() && event.getClickCount() >=2 ){
+                    processAccountSelected();
+                }
+            }
+        });
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setPrefSize(115, 150);
+        scrollPane.setContent(tableOfBooks);
 
         submitButton = new Button("Submit");
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
+
             @Override
             public void handle(ActionEvent e) {
-                processAction(e);
+                clearErrorMessage();
+                // do the inquiry
+                processAccountSelected();
+
             }
         });
 
         cancelButton = new Button("Back");
         cancelButton.setOnAction(new EventHandler<ActionEvent>() {
+
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("CancelTransaction", null);
+                /**
+                 * Process the Cancel button.
+                 * The ultimate result of this action is that the transaction will tell the teller to
+                 * to switch to the transaction choice view. BUT THAT IS NOT THIS VIEW'S CONCERN.
+                 * It simply tells its model (controller) that the transaction was canceled, and leaves it
+                 * to the model to decide to tell the teller to do the switch back.
+                 */
+                //----------------------------------------------------------
+                clearErrorMessage();
+                myModel.stateChangeRequest("CancelAccountList", null);
             }
         });
 
-        HBox buttonCont = new HBox(10);
-        buttonCont.setAlignment(Pos.CENTER);
-        buttonCont.getChildren().add(submitButton);
-        Label space = new Label("               ");
-        buttonCont.setAlignment(Pos.CENTER);
-        buttonCont.getChildren().add(space);
-        buttonCont.setAlignment(Pos.CENTER);
-        buttonCont.getChildren().add(cancelButton);
+        HBox btnContainer = new HBox(100);
+        btnContainer.setAlignment(Pos.CENTER);
+        btnContainer.getChildren().add(submitButton);
+        btnContainer.getChildren().add(cancelButton);
+
         vbox.getChildren().add(grid);
-        vbox.getChildren().add(buttonCont);
+        vbox.getChildren().add(scrollPane);
+        vbox.getChildren().add(btnContainer);
 
         return vbox;
     }
 
 
+
+    //--------------------------------------------------------------------------
+    public void updateState(String key, Object value)
+    {
+    }
+
+    //--------------------------------------------------------------------------
+    protected void processAccountSelected()
+    {
+        BookTableModel selectedItem = tableOfBooks.getSelectionModel().getSelectedItem();
+
+        if(selectedItem != null)
+        {
+            String selectedAcctNumber = selectedItem.getBookID();
+
+            myModel.stateChangeRequest("BookSelected", selectedAcctNumber);
+        }
+    }
+
+    //--------------------------------------------------------------------------
     protected MessageView createStatusLog(String initialMessage)
     {
         statusLog = new MessageView(initialMessage);
@@ -120,49 +248,33 @@ public class BookCollectionView extends View {
         return statusLog;
     }
 
-    public void populateFields() {
-        this.bookTitle.setText((String)this.myModel.getState("Book Title"));
 
+    /**
+     * Display info message
+     */
+    //----------------------------------------------------------
+    public void displayMessage(String message)
+    {
+        statusLog.displayMessage(message);
     }
 
-    public void updateState(String var1, Object var2) {
-        /*this.clearErrorMessage();
-        if (var1.equals("ServiceCharge")) {
-            String var3 = (String)var2;
-            this.serviceCharge.setText(var3);
-            this.displayMessage("Service Charge Imposed: $ " + var3);
-        }
-
-         */
-
+    /**
+     * Clear error message
+     */
+    //----------------------------------------------------------
+    public void clearErrorMessage()
+    {
+        statusLog.clearErrorMessage();
     }
-
-    public void displayErrorMessage(String var1) {
-        /*
-        this.statusLog.displayErrorMessage(var1);
-
-         */
-    }
-
-    public void displayMessage(String var1) {
-        /*
-        this.statusLog.displayMessage(var1);
-
-         */
-    }
-
-    public void clearErrorMessage() {
-        /*
-        this.statusLog.clearErrorMessage();
-
-         */
-    }
-
-    private void processAction(ActionEvent e) {
-
-        clearErrorMessage();
-
-        String title = bookTitle.getText();
-    }
+	/*
+	//--------------------------------------------------------------------------
+	public void mouseClicked(MouseEvent click)
+	{
+		if(click.getClickCount() >= 2)
+		{
+			processAccountSelected();
+		}
+	}
+   */
 
 }
