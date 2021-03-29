@@ -3,6 +3,7 @@ package userinterface;
 import java.util.Vector;
 
 import javafx.beans.property.SimpleStringProperty;
+
 public class BookTableModel{
     private final SimpleStringProperty bookId;
     private final SimpleStringProperty author;

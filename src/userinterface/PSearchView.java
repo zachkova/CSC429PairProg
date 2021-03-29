@@ -22,7 +22,7 @@ import javafx.scene.text.TextAlignment;
 
 public class PSearchView extends View {
 
-    protected TextField name;
+    protected TextField zip;
 
     protected Button cancelButton;
     protected Button submitButton;
@@ -30,8 +30,8 @@ public class PSearchView extends View {
     // For showing error message
     protected MessageView statusLog;
 
-    public PSearchView(IModel Patron) {
-        super(Patron, "PSearchView");
+    public PSearchView(IModel lib) {
+        super(lib, "PSearchView");
         VBox container = new VBox(10.0D);
         container.setPadding(new Insets(15.0D, 5.0D, 5.0D, 5.0D));
         // Add a title for this panel
@@ -79,10 +79,10 @@ public class PSearchView extends View {
         grid.add(prompt, 0, 0, 2, 1);
 
 
-        name = new TextField();
-        name.setEditable(true);
-        name.setAlignment(Pos.CENTER);
-        grid.add(name,0,1,2,1);
+        zip = new TextField();
+        zip.setEditable(true);
+        zip.setAlignment(Pos.CENTER);
+        grid.add(zip,0,1,2,1);
 
         submitButton = new Button("Submit");
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -91,7 +91,7 @@ public class PSearchView extends View {
 
                 //processAction(e);
 
-                myModel.stateChangeRequest("BookCollectionView", null);
+                myModel.stateChangeRequest("PatronCollectionView", null);
             }
         });
 
@@ -126,7 +126,7 @@ public class PSearchView extends View {
     }
 
     public void populateFields() {
-        this.name.setText((String)this.myModel.getState("Zip Code"));
+        this.zip.setText((String)this.myModel.getState("Zip Code"));
 
     }
 
@@ -167,7 +167,7 @@ public class PSearchView extends View {
 
         clearErrorMessage();
 
-        String zipCode = name.getText();
+        String zipCode = zip.getText();
     }
 
 }

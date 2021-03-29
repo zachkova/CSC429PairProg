@@ -85,6 +85,9 @@ public class ViewFactory {
 		else if(viewName.equals("PSearchView") == true){
 			return new PSearchView(model);
 		}
+		else if(viewName.equals("BookCollectionView") == true){
+			return new BookCollectionView(model);
+		}
 		else
 			return null;
 

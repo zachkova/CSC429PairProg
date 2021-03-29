@@ -30,8 +30,8 @@ public class SearchView extends View {
     // For showing error message
     protected MessageView statusLog;
 
-    public SearchView(IModel Book) {
-        super(Book, "SearchView");
+    public SearchView(IModel lib) {
+        super(lib, "SearchView");
         VBox container = new VBox(10.0D);
         container.setPadding(new Insets(15.0D, 5.0D, 5.0D, 5.0D));
         // Add a title for this panel
@@ -168,6 +168,7 @@ public class SearchView extends View {
         clearErrorMessage();
 
         String title = bookTitle.getText();
+        myModel.stateChangeRequest("SearchBooks", title);
     }
 
 }

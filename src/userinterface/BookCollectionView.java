@@ -44,9 +44,9 @@ public class BookCollectionView extends View
 
 
     //--------------------------------------------------------------------------
-    public BookCollectionView(IModel Book)
+    public BookCollectionView(IModel lib)
     {
-        super(Book, "BookCollectionView");
+        super(lib, "BookCollectionView");
 
         // create a container for showing the contents
         VBox container = new VBox(10);
@@ -85,7 +85,7 @@ public class BookCollectionView extends View
             while (entries.hasMoreElements() == true)
             {
                 Book nextBook = (Book)entries.nextElement();
-                Vector<String> view = nextBook.getPSearchView();
+                Vector<String> view = nextBook.getEntryListView();
 
                 // add this list entry to the list
                 BookTableModel nextTableRowData = new BookTableModel(view);
@@ -166,15 +166,7 @@ public class BookCollectionView extends View
         tableOfBooks.getColumns().addAll(bookIdColumn, authorColumn, pubYearColumn,
                 titleColumn, statusColumn);
 
-        tableOfBooks.setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event)
-            {
-                if (event.isPrimaryButtonDown() && event.getClickCount() >=2 ){
-                    processAccountSelected();
-                }
-            }
-        });
+
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setPrefSize(115, 150);
         scrollPane.setContent(tableOfBooks);
@@ -186,7 +178,7 @@ public class BookCollectionView extends View
             public void handle(ActionEvent e) {
                 clearErrorMessage();
                 // do the inquiry
-                processAccountSelected();
+                processBookSelected();
 
             }
         });
@@ -229,15 +221,15 @@ public class BookCollectionView extends View
     }
 
     //--------------------------------------------------------------------------
-    protected void processAccountSelected()
+    protected void processBookSelected()
     {
         BookTableModel selectedItem = tableOfBooks.getSelectionModel().getSelectedItem();
 
         if(selectedItem != null)
         {
-            String selectedAcctNumber = selectedItem.getBookID();
+            String selectedItemBookId = selectedItem.getBookId();
 
-            myModel.stateChangeRequest("BookSelected", selectedAcctNumber);
+            myModel.stateChangeRequest("BookSelected", selectedItemBookId);
         }
     }
 

@@ -17,10 +17,8 @@ import impresario.ModelRegistry;
 import exception.InvalidPrimaryKeyException;
 import exception.PasswordMismatchException;
 import event.Event;
-import userinterface.MainStageContainer;
-import userinterface.View;
-import userinterface.ViewFactory;
-import userinterface.WindowPosition;
+import userinterface.*;
+import model.model.*;
 
 /** The class containing the Teller  for the ATM application */
 //==============================================================
@@ -46,6 +44,7 @@ public class Librarian implements IView, IModel
     private Patron myPatron;
     private Book mySearch;
     private Patron PSearchView;
+    private BookCollection bCollection;
 
     // constructor for this class
     //----------------------------------------------------------
@@ -157,7 +156,14 @@ public class Librarian implements IView, IModel
             PSearchView = new Patron();
             createAndShowPSearchView();
         }
+        else if (key.equals("BookCollectionView") == true)
+        {
+            String titleToSearch = (String)value;
+            bCollection = new BookCollection();
+            bCollection.findBooksWithTitleLike(titleToSearch);
+            createAndShowBookCollectionView();
 
+        }
         else
         if ((key.equals("Deposit") == true) || (key.equals("Withdraw") == true) ||
                 (key.equals("Transfer") == true) || (key.equals("BalanceInquiry") == true) ||
@@ -343,6 +349,22 @@ public class Librarian implements IView, IModel
             View newView = ViewFactory.createView("PSearchView", this); // USE VIEW FACTORY
             currentScene = new Scene(newView);
             myViews.put("PSearchView", currentScene);
+        }
+
+        swapToView(currentScene);
+
+    }
+
+    private void createAndShowBookCollectionView()
+    {
+        Scene currentScene = (Scene)myViews.get("BookCollectionView");
+
+        if (currentScene == null)
+        {
+            // create our initial view
+            View newView = ViewFactory.createView("BookCollectionView", this); // USE VIEW FACTORY
+            currentScene = new Scene(newView);
+            myViews.put("BookCollectionView", currentScene);
         }
 
         swapToView(currentScene);
