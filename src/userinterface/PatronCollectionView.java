@@ -166,24 +166,24 @@ public class PatronCollectionView extends View
                 new PropertyValueFactory<PatronTableModel, String>("stateCode"));
 
         TableColumn zipColumn = new TableColumn("zip") ;
-        patronIdColumn.setMinWidth(100);
+        zipColumn.setMinWidth(100);
         zipColumn.setCellValueFactory(
                 new PropertyValueFactory<PatronTableModel, String>("zip"));
 
         TableColumn emailColumn = new TableColumn("email") ;
-        patronIdColumn.setMinWidth(100);
+        emailColumn.setMinWidth(100);
         emailColumn.setCellValueFactory(
                 new PropertyValueFactory<PatronTableModel, String>("email"));
 
         TableColumn dateOfBirthColumn = new TableColumn("dateOfBirth") ;
-        patronIdColumn.setMinWidth(100);
+        dateOfBirthColumn.setMinWidth(100);
         dateOfBirthColumn.setCellValueFactory(
                 new PropertyValueFactory<PatronTableModel, String>("dateOfBirth"));
 
-        TableColumn statusColumn = new TableColumn("status") ;
+        TableColumn statusColumn = new TableColumn("Status") ;
         statusColumn.setMinWidth(25);
         statusColumn.setCellValueFactory(
-                new PropertyValueFactory<PatronTableModel, String>("status"));
+                new PropertyValueFactory<PatronTableModel, String>("Status"));
 
         tableOfPatrons.getColumns().addAll(patronIdColumn, nameColumn, addressColumn, cityColumn, stateCodeColumn, zipColumn
         , emailColumn, dateOfBirthColumn, statusColumn);

@@ -188,6 +188,14 @@ public class PatronView extends View
             @Override
             public void handle(ActionEvent e) {
                 System.out.print("name:" + name);
+
+                Text mes = new Text(" Patron Submitted ");
+                mes.setFont(myFont);
+                mes.setWrappingWidth(150);
+                mes.setTextAlignment(TextAlignment.LEFT);
+                grid.add(mes, 0, 9);
+
+
                 processAction(e);
             }
         });

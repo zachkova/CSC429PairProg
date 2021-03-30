@@ -49,6 +49,7 @@ public class BookView extends View
     // For showing error message
     private MessageView statusLog;
 
+
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
 
@@ -164,6 +165,13 @@ public class BookView extends View
             public void handle(ActionEvent e) {
                 clearErrorMessage();
                 processAction(e);
+
+                Text mes = new Text(" Book Submitted  ");
+                mes.setFont(myFont);
+                mes.setWrappingWidth(150);
+                mes.setTextAlignment(TextAlignment.LEFT);
+                grid.add(mes, 0, 5);
+
             }
         });
 
@@ -263,6 +271,7 @@ public class BookView extends View
         newAuthor.setText("");
         newTitle.setText("");
         pubYear.setText("");
+
 
         Book newBook = new Book(p);
         myModel.stateChangeRequest("newBook", p);

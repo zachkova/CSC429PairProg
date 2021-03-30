@@ -115,7 +115,7 @@ public class Patron extends EntityBase{
 	
     public String toString()
     {
-		return "Patron: ID: " + getState("patronId") + " Name: " + getState("name") + " DOB: " + getState("dateOfBirth") + getState("state");
+		return "Patron: ID: " + getState("patronId") + " Name: " + getState("name") + " DOB: " + getState("dateOfBirth") + getState("status");
     }
 
     public static int compare(Patron a, Patron b) {
@@ -147,7 +147,7 @@ public class Patron extends EntityBase{
         v.addElement(persistentState.getProperty("zip"));
         v.addElement(persistentState.getProperty("email"));
         v.addElement(persistentState.getProperty("dateOfBirth"));
-        v.addElement(persistentState.getProperty("status"));
+        v.addElement(persistentState.getProperty("Status"));
 
         return v;
     }
