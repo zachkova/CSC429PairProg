@@ -153,7 +153,8 @@ public class LibrarianView extends View
 
             @Override
             public void handle(ActionEvent e) {
-                processAction(e);
+                Stage stage = (Stage) done.getScene().getWindow();
+                stage.close();
             }
         });
 

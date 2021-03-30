@@ -167,14 +167,14 @@ public class BookView extends View
             }
         });
 
-        doneButton = new Button("Done");
+        doneButton = new Button("Back");
         doneButton.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         doneButton.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                myModel.stateChangeRequest("Cancelled", null);
+                myModel.stateChangeRequest("Done", null);
             }
         });
         doneCont.getChildren().add(subButton);

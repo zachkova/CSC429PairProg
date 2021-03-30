@@ -30,8 +30,8 @@ public class PSearchView extends View {
     // For showing error message
     protected MessageView statusLog;
 
-    public PSearchView(IModel lib) {
-        super(lib, "PSearchView");
+    public PSearchView(IModel Librarian) {
+        super(Librarian, "PSearchView");
         VBox container = new VBox(10.0D);
         container.setPadding(new Insets(15.0D, 5.0D, 5.0D, 5.0D));
         // Add a title for this panel
@@ -99,7 +99,7 @@ public class PSearchView extends View {
         cancelButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("CancelTransaction", null);
+                myModel.stateChangeRequest("Done", null);
             }
         });
 

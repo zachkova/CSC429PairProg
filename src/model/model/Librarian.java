@@ -94,36 +94,6 @@ public class Librarian implements IView, IModel
      *
      * @return	Value associated with the field
      */
-    //----------------------------------------------------------
-
-
-    public Object getState(String key)
-    {
-        /*
-        if (key.equals("LoginError") == true)
-        {
-            return loginErrorMessage;
-        }
-        else
-        if (key.equals("TransactionError") == true)
-        {
-            return transactionErrorMessage;
-        }
-        else
-        if (key.equals("Name") == true)
-        {
-            if (myAccountHolder != null)
-            {
-                return myAccountHolder.getState("Name");
-            }
-            else
-                return "Undefined";
-        }
-        else*/
-            return "";
-
-    }
-
 
 
     //----------------------------------------------------------------
@@ -148,7 +118,7 @@ public class Librarian implements IView, IModel
         else
         if (key.equals("SearchView") == true)
         {
-            mySearch = new Book();
+            bCollection = new BookCollection();
             createAndShowSearchView();
         }
         else
@@ -159,19 +129,20 @@ public class Librarian implements IView, IModel
         }
         else if (key.equals("BookCollectionView") == true)
         {
-            String titleToSearch = (String)value;
-            bCollection = new BookCollection();
-            bCollection.findBooksWithTitleLike(titleToSearch);
-            createAndShowBookCollectionView();
-
+            searchBooks(value);
         }
         else if (key.equals("PatronCollectionView") == true)
         {
             String zipToSearch = (String)value;
             pCollection = new PatronCollection();
             pCollection.findPatronsAtZipCode(zipToSearch);
+            System.out.println(pCollection.toString());
             createAndShowPatronCollectionView();
 
+        }
+        else if (key.equals("Done") == true)
+        {
+            createAndShowLibrarianView();
         }
         else
         if ((key.equals("Deposit") == true) || (key.equals("Withdraw") == true) ||
@@ -191,7 +162,7 @@ public class Librarian implements IView, IModel
 
         }
         else
-        if (key.equals("Logout") == true)
+        if (key.equals("Done") == true)
         {
             myAccountHolder = null;
             myViews.remove("TransactionChoiceView");
@@ -414,7 +385,18 @@ public class Librarian implements IView, IModel
         myRegistry.unSubscribe(key, subscriber);
     }
 
+    public void searchBooks(Object title){
+        bCollection = new BookCollection();
+        bCollection.findBooksWithTitleLike((String)title);
+        createAndShowBookCollectionView();
+    }
 
+    public Object getState(String key){
+        if (key.equals("BookList")) {
+            return bCollection;
+        }
+        return null;
+    }
 
     //-----------------------------------------------------------------------------
     public void swapToView(Scene newScene)

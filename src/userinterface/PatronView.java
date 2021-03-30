@@ -194,7 +194,7 @@ public class PatronView extends View
         cancelButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("CancelTransaction", null);
+                myModel.stateChangeRequest("Done", null);
             }
         });
 

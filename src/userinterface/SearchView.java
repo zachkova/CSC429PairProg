@@ -30,8 +30,8 @@ public class SearchView extends View {
     // For showing error message
     protected MessageView statusLog;
 
-    public SearchView(IModel lib) {
-        super(lib, "SearchView");
+    public SearchView(IModel Librarian) {
+        super(Librarian, "SearchView");
         VBox container = new VBox(10.0D);
         container.setPadding(new Insets(15.0D, 5.0D, 5.0D, 5.0D));
         // Add a title for this panel
@@ -90,8 +90,9 @@ public class SearchView extends View {
             public void handle(ActionEvent e) {
 
                 //processAction(e);
+                String title = bookTitle.getText();
 
-                myModel.stateChangeRequest("BookCollectionView", null);
+                myModel.stateChangeRequest("BookCollectionView", title);
             }
         });
 
@@ -99,7 +100,7 @@ public class SearchView extends View {
         cancelButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                myModel.stateChangeRequest("CancelTransaction", null);
+                myModel.stateChangeRequest("Done", null);
             }
         });
 
@@ -168,7 +169,7 @@ public class SearchView extends View {
         clearErrorMessage();
 
         String title = bookTitle.getText();
-        myModel.stateChangeRequest("SearchBooks", title);
+        myModel.stateChangeRequest("BookCollectionView", title);
     }
 
 }

@@ -210,16 +210,7 @@ public class PatronCollectionView extends View
 
             @Override
             public void handle(ActionEvent e) {
-                /**
-                 * Process the Cancel button.
-                 * The ultimate result of this action is that the transaction will tell the teller to
-                 * to switch to the transaction choice view. BUT THAT IS NOT THIS VIEW'S CONCERN.
-                 * It simply tells its model (controller) that the transaction was canceled, and leaves it
-                 * to the model to decide to tell the teller to do the switch back.
-                 */
-                //----------------------------------------------------------
-                clearErrorMessage();
-                myModel.stateChangeRequest("CancelAccountList", null);
+                myModel.stateChangeRequest("Done", null);
             }
         });
 

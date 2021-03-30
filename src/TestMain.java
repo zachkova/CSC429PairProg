@@ -28,7 +28,6 @@ public class TestMain
 
 
 
-
           System.out.println("Entering three books...");
           for(int i = 0; i <= 2; i++) {
              //prop = new Properties();

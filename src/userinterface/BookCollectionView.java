@@ -37,6 +37,7 @@ import model.model.BookCollection;
 public class BookCollectionView extends View
 {
     protected TableView<BookTableModel> tableOfBooks;
+
     protected Button cancelButton;
     protected Button submitButton;
 
@@ -44,9 +45,9 @@ public class BookCollectionView extends View
 
 
     //--------------------------------------------------------------------------
-    public BookCollectionView(IModel lib)
+    public BookCollectionView(IModel Librarian)
     {
-        super(lib, "BookCollectionView");
+        super(Librarian, "BookCollectionView");
 
         // create a container for showing the contents
         VBox container = new VBox(10);
@@ -197,7 +198,7 @@ public class BookCollectionView extends View
                  */
                 //----------------------------------------------------------
                 clearErrorMessage();
-                myModel.stateChangeRequest("CancelAccountList", null);
+                myModel.stateChangeRequest("Done", null);
             }
         });
 
