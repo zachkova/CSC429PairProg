@@ -163,7 +163,7 @@ public class BookView extends View
             @Override
             public void handle(ActionEvent e) {
                 clearErrorMessage();
-                myModel.stateChangeRequest("Cancelled", null);
+                processAction(e);
             }
         });
 
@@ -247,4 +247,25 @@ public class BookView extends View
         statusLog.clearErrorMessage();
     }
 
+    private void processAction(ActionEvent e) {
+
+        clearErrorMessage();
+
+        String aName = newAuthor.getText();
+        String title = newTitle.getText();
+        String pub = pubYear.getText();
+
+        Properties p = new Properties();
+        p.setProperty("bookTitle", title);
+        p.setProperty("author", aName);
+        p.setProperty("pubYear", pub);
+
+        newAuthor.setText("");
+        newTitle.setText("");
+        pubYear.setText("");
+
+        Book newBook = new Book(p);
+        myModel.stateChangeRequest("newBook", p);
+
+    }
 }

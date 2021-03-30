@@ -2,6 +2,7 @@
 package model.model;
 
 // system imports
+import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Properties;
 
@@ -113,8 +114,43 @@ public class Librarian implements IView, IModel
         if (key.equals("addPatron") == true)
         {
             myPatron = new Patron();
+
             createAndShowPatronView();
+        } else
+        if (key.equals("newPatron") == true)
+        {
+            Properties p = (Properties)value;
+            Enumeration keys = p.propertyNames();
+
+            while(keys.hasMoreElements()){
+                String nextKey = (String) keys.nextElement();
+                String nextValue = p.getProperty(nextKey);
+                if (nextValue != null){
+                    myPatron.stateChangeRequest(nextKey, nextValue);
+                }
+            }
+            myPatron.stateChangeRequest("status","Active");
+            //System.out.println(myPatron.toString());
+            myPatron.update();
+            //patronUpdateMessage = "Patron data added successfully";
+
         }
+        else
+        if (key.equals("newBook") == true) {
+            Properties p = (Properties) value;
+            Enumeration keys = p.propertyNames();
+
+            while (keys.hasMoreElements()) {
+                String nextKey = (String) keys.nextElement();
+                String nextValue = p.getProperty(nextKey);
+                if (nextValue != null) {
+                    myBook.stateChangeRequest(nextKey, nextValue);
+                }
+            }
+            myBook.stateChangeRequest("status", "Active");
+            myBook.update();
+        }
+            //bookUpdateMessage = "Book data added successfully";
         else
         if (key.equals("SearchView") == true)
         {

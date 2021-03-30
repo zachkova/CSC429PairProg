@@ -50,9 +50,9 @@ public class PatronView extends View
 
     // constructor for this class -- takes a model object
     //----------------------------------------------------------
-    public PatronView(IModel patron)
+    public PatronView(IModel Patron)
     {
-        super(patron, "PatronView");
+        super(Patron, "PatronView");
 
         // create a container for showing the contents
         VBox container = new VBox(10);
@@ -186,6 +186,7 @@ public class PatronView extends View
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
+                System.out.print("name:" + name);
                 processAction(e);
             }
         });
@@ -216,8 +217,34 @@ public class PatronView extends View
 
         clearErrorMessage();
 
-        String Patron = name.getText();
+        String patron = name.getText();
         String pAddress = address.getText();
+        String pZip = zipcode.getText();
+        String pCity = city.getText();
+        String pState = state.getText();
+        String pEmail = email.getText();
+        String pDOB = dob.getText();
+
+        Properties p = new Properties();
+        p.setProperty("name", patron);
+        p.setProperty("address", pAddress);
+        p.setProperty("city", pCity);
+        p.setProperty("stateCode", pState);
+        p.setProperty("zip", pZip);
+        p.setProperty("email", pEmail);
+        p.setProperty("dateOfBirth", pDOB);
+
+        name.setText("");
+        System.out.print("name:" + name);
+        address.setText("");
+        zipcode.setText("");
+        city.setText("");
+        state.setText("");
+        email.setText("");
+        dob.setText("");
+
+        myModel.stateChangeRequest("newPatron", p);
+
     }
 
 
