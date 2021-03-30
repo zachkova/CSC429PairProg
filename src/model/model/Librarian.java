@@ -133,12 +133,7 @@ public class Librarian implements IView, IModel
         }
         else if (key.equals("PatronCollectionView") == true)
         {
-            String zipToSearch = (String)value;
-            pCollection = new PatronCollection();
-            pCollection.findPatronsAtZipCode(zipToSearch);
-            System.out.println(pCollection.toString());
-            createAndShowPatronCollectionView();
-
+            searchPatrons(value);
         }
         else if (key.equals("Done") == true)
         {
@@ -388,13 +383,26 @@ public class Librarian implements IView, IModel
     public void searchBooks(Object title){
         bCollection = new BookCollection();
         bCollection.findBooksWithTitleLike((String)title);
+        System.out.println(bCollection.toString());
         createAndShowBookCollectionView();
+    }
+
+    public void searchPatrons(Object zip){
+        pCollection = new PatronCollection();
+        pCollection.findPatronsAtZipCode((String)zip);
+        System.out.println(pCollection.toString());
+        createAndShowPatronCollectionView();
     }
 
     public Object getState(String key){
         if (key.equals("BookList")) {
             return bCollection;
         }
+        else if
+        (key.equals("PatronList")){
+            return pCollection;
+        }
+
         return null;
     }
 

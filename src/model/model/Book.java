@@ -51,6 +51,7 @@ public class Book extends EntityBase{
         while(allKeys.hasMoreElements()) {
             String kyle = (String)allKeys.nextElement();
             String kyleGF = props.getProperty(kyle);
+            System.out.println(kyleGF);
             if (kyleGF != null) {
                 this.persistentState.setProperty(kyle, kyleGF);
             }
@@ -144,9 +145,9 @@ public class Book extends EntityBase{
         Vector<String> v = new Vector<String>();
 
         v.addElement(persistentState.getProperty("bookId"));
+        v.addElement(persistentState.getProperty("bookTitle"));
         v.addElement(persistentState.getProperty("author"));
         v.addElement(persistentState.getProperty("pubYear"));
-        v.addElement(persistentState.getProperty(""));
         v.addElement(persistentState.getProperty("status"));
 
         return v;

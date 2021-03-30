@@ -165,7 +165,12 @@ public class BookCollection extends EntityBase
     //----------------------------------------------------------
     public Object getState(String key)
     {
-        return null;
+        if (key.equals("Book"))
+            return bookList;
+            else if (key.equals("BookList"))
+                return this;
+            else
+                return null;
     }
 
     //---------------------------------------------------------------

@@ -90,9 +90,9 @@ public class SearchView extends View {
             public void handle(ActionEvent e) {
 
                 //processAction(e);
-                String title = bookTitle.getText();
+                //String title = bookTitle.getText();
 
-                myModel.stateChangeRequest("BookCollectionView", title);
+                myModel.stateChangeRequest("BookCollectionView", bookTitle.getText());
             }
         });
 

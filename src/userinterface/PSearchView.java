@@ -89,9 +89,7 @@ public class PSearchView extends View {
             @Override
             public void handle(ActionEvent e) {
 
-                //processAction(e);
-
-                myModel.stateChangeRequest("PatronCollectionView", null);
+                myModel.stateChangeRequest("PatronCollectionView", zip.getText());
             }
         });
 

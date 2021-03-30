@@ -46,9 +46,9 @@ public class PatronCollectionView extends View
 
 
     //--------------------------------------------------------------------------
-    public PatronCollectionView(IModel lib)
+    public PatronCollectionView(IModel Library)
     {
-        super(lib, "PatronCollectionView");
+        super(Library, "PatronCollectionView");
 
         // create a container for showing the contents
         VBox container = new VBox(10);
