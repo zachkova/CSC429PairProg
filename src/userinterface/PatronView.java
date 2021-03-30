@@ -27,6 +27,7 @@ import java.util.Properties;
 
 // project imports
 import impresario.IModel;
+import model.model.Patron;
 
 /** The class containing the Account View  for the ATM application */
 //==============================================================
@@ -243,6 +244,8 @@ public class PatronView extends View
         email.setText("");
         dob.setText("");
 
+        Patron x = new Patron(p);
+        x.update();
         myModel.stateChangeRequest("newPatron", p);
 
     }

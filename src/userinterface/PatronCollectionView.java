@@ -141,7 +141,7 @@ public class PatronCollectionView extends View
         tableOfPatrons.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
 
         TableColumn patronIdColumn = new TableColumn("patronId") ;
-        patronIdColumn.setMinWidth(25);
+        patronIdColumn.setMinWidth(100);
         patronIdColumn.setCellValueFactory(
                 new PropertyValueFactory<PatronTableModel, String>("patronId"));
 
@@ -151,7 +151,7 @@ public class PatronCollectionView extends View
                 new PropertyValueFactory<PatronTableModel, String>("name"));
 
         TableColumn addressColumn = new TableColumn("address") ;
-        addressColumn.setMinWidth(25);
+        addressColumn.setMinWidth(100);
         addressColumn.setCellValueFactory(
                 new PropertyValueFactory<PatronTableModel, String>("address"));
 
@@ -166,23 +166,23 @@ public class PatronCollectionView extends View
                 new PropertyValueFactory<PatronTableModel, String>("stateCode"));
 
         TableColumn zipColumn = new TableColumn("zip") ;
-        patronIdColumn.setMinWidth(25);
-        patronIdColumn.setCellValueFactory(
+        patronIdColumn.setMinWidth(100);
+        zipColumn.setCellValueFactory(
                 new PropertyValueFactory<PatronTableModel, String>("zip"));
 
         TableColumn emailColumn = new TableColumn("email") ;
-        patronIdColumn.setMinWidth(25);
-        patronIdColumn.setCellValueFactory(
+        patronIdColumn.setMinWidth(100);
+        emailColumn.setCellValueFactory(
                 new PropertyValueFactory<PatronTableModel, String>("email"));
 
         TableColumn dateOfBirthColumn = new TableColumn("dateOfBirth") ;
-        patronIdColumn.setMinWidth(25);
-        patronIdColumn.setCellValueFactory(
+        patronIdColumn.setMinWidth(100);
+        dateOfBirthColumn.setCellValueFactory(
                 new PropertyValueFactory<PatronTableModel, String>("dateOfBirth"));
 
         TableColumn statusColumn = new TableColumn("status") ;
-        patronIdColumn.setMinWidth(25);
-        patronIdColumn.setCellValueFactory(
+        statusColumn.setMinWidth(25);
+        statusColumn.setCellValueFactory(
                 new PropertyValueFactory<PatronTableModel, String>("status"));
 
         tableOfPatrons.getColumns().addAll(patronIdColumn, nameColumn, addressColumn, cityColumn, stateCodeColumn, zipColumn
@@ -192,6 +192,7 @@ public class PatronCollectionView extends View
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setPrefSize(115, 150);
         scrollPane.setContent(tableOfPatrons);
+
 
         submitButton = new Button("Submit");
         submitButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -240,9 +241,9 @@ public class PatronCollectionView extends View
 
         if(selectedItem != null)
         {
-            String selectedItemBookId = selectedItem.getPatronId();
+            String selectedItemPatronId = selectedItem.getPatronId();
 
-            myModel.stateChangeRequest("PatronSelected", selectedItem.getPatronId());
+            myModel.stateChangeRequest("Patron", selectedItemPatronId);
         }
     }
 

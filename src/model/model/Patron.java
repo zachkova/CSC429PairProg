@@ -115,7 +115,7 @@ public class Patron extends EntityBase{
 	
     public String toString()
     {
-		return "Patron: ID: " + getState("patronId") + " Name: " + getState("name") + " DOB: " + getState("dateOfBirth");
+		return "Patron: ID: " + getState("patronId") + " Name: " + getState("name") + " DOB: " + getState("dateOfBirth") + getState("state");
     }
 
     public static int compare(Patron a, Patron b) {

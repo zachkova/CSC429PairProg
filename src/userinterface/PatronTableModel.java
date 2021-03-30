@@ -28,6 +28,7 @@ public class PatronTableModel{
         email =  new SimpleStringProperty(bookData.elementAt(6));
         dateOfBirth =  new SimpleStringProperty(bookData.elementAt(7));
         status =  new SimpleStringProperty(bookData.elementAt(8));
+        System.out.println("Test" + patronId + " " + email + " " + dateOfBirth + " " + status);
     }
 
     //----------------------------------------------------------------------------
